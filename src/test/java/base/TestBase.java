@@ -1,11 +1,11 @@
 package base;
 
+import org.example.config.ConfigLoader;
 import org.example.driver.DriverManager;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-import org.example.config.ConfigLoader;
 
-import static org.example.utils.Constants.*;
+import static org.example.utils.Constants.ConfigFiles;
 
 public class TestBase {
 
