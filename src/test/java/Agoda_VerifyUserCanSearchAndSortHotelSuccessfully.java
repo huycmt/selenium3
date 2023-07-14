@@ -13,7 +13,7 @@ import java.time.temporal.TemporalAdjusters;
 
 import static org.example.driver.DriverManager.driver;
 
-@Listeners({SoftAsserts.class})
+//@Listeners({SoftAsserts.class})
 public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase {
 
     @BeforeMethod
