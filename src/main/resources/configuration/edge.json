@@ -3,10 +3,14 @@
   "browserVersion": "",
   "browserCapabilities": {
     "caps": {
+      "ms:edgeOptions," : {
+        "args" : ["enable-automation", "--disable-gpu", "--no-sandbox", "--remote-allow-origins=*"]
+      }
     }
   },
   "startMaximized": true,
   "timeout": 60000,
-  "pollingInterval": 200
+  "pollingInterval": 200,
+  "assertionMode": "SOFT"
 
 }

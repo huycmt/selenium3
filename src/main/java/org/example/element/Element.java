@@ -146,6 +146,9 @@ public class Element {
     }
 
     public ElementsCollection elements() {
+        if (!Objects.nonNull(this.by)) {
+            this.by = by();
+        }
         return driver().getDriver().$$(this.by);
     }
 
