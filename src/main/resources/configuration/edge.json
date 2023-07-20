@@ -7,6 +7,6 @@
   },
   "startMaximized": true,
   "timeout": 60000,
-  "pollingInterval": 200
-
+  "pollingInterval": 200,
+  "assertionMode": "SOFT"
 }
