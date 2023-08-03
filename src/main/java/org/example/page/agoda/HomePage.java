@@ -1,7 +1,9 @@
 package org.example.page.agoda;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.example.element.Element;
+import org.example.utils.Assertion;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +21,7 @@ public class HomePage {
         dayUseStay.click();
     }
 
-    @Step("Enter place: {place}")
+    @Step("Enter place")
     public void enterPlaceTextBox(String place) {
         placeTextBox.enter(place);
     }
@@ -29,7 +31,7 @@ public class HomePage {
         firstPlaceResult.click();
     }
 
-    @Step("Select date: {date}")
+    @Step("Select date")
     public void selectDate(LocalDate date) {
         String dateStr = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         selectDate.set(dateStr);
@@ -44,7 +46,7 @@ public class HomePage {
         occupancyBox.click();
     }
 
-    @Step("Click search")
+    @Step("Click search button")
     public void clickSearch() {
         searchButton.waitForExist();
         searchButton.click();

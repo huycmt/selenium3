@@ -1,6 +1,8 @@
 package org.example.driver;
 
 import org.example.config.Configuration;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import java.util.HashMap;
 
