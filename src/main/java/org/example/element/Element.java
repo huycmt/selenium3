@@ -93,6 +93,14 @@ public class Element {
         return element;
     }
 
+    public Element scrollIntoView(boolean b) {
+        if (!Objects.nonNull(this.by)) {
+            this.by = by();
+        }
+        this.element = driver().getDriver().$(this.by).scrollIntoView(b);
+        return this;
+    }
+
     public Element get(int index) {
         return new Element(element(index));
     }
@@ -150,6 +158,15 @@ public class Element {
             this.by = by();
         }
         return driver().getDriver().$$(this.by);
+    }
+
+    public boolean isDisplayed() {
+        return element().isDisplayed();
+    }
+
+    public Element check() {
+        element().setSelected(true);
+        return this;
     }
 
     protected Duration timeout() {

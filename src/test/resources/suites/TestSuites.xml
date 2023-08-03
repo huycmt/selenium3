@@ -4,13 +4,8 @@
     <test name="Agoda">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
+            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
+            <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>
         </classes>
     </test>
-<!--    <test name="Agoda 2">-->
-<!--        <parameter name="browser" value="edge"/>-->
-<!--        <classes>-->
-<!--            <class name="Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
-<!--        </classes>-->
-<!--    </test>-->
 </suite>

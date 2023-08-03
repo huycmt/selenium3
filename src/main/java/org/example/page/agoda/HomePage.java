@@ -43,13 +43,16 @@ public class HomePage {
         plusRoom.click();
         plusAdult.click();
         plusAdult.click();
-        occupancyBox.click();
+//        adultValue.click();
     }
 
     @Step("Click search button")
     public void clickSearch() {
         searchButton.waitForExist();
         searchButton.click();
+        if (searchButton.isDisplayed()) {
+            searchButton.click();
+        }
     }
 
     private Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
@@ -59,6 +62,6 @@ public class HomePage {
     private Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
     private Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
     private Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
-    private Element occupancyBox = new Element("id=occupancy-box", true);
-    private Element searchButton = new Element("xpath=//button[@data-selenium='searchButton']", true);
+    private Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
+    private Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
 }
