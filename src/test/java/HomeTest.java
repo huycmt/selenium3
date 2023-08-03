@@ -1,6 +1,8 @@
 import base.TestBase;
 import com.codeborne.selenide.*;
+import com.codeborne.selenide.testng.SoftAsserts;
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.DayOfWeek;
@@ -11,6 +13,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
 import java.util.List;
 
+@Listeners({SoftAsserts.class})
 public class HomeTest {
 
     @Test
@@ -19,12 +22,13 @@ public class HomeTest {
         String place = "Da Nang";
         LocalDate threeDaysFromNextFriday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY)).plusDays(3);
 
-        SelenideConfig selenideConfig = new SelenideConfig();
+        SelenideConfig selenideConfig = new SelenideConfig().timeout(120000).pollingInterval(200).pageLoadTimeout(120000);
         selenideConfig.assertionMode(AssertionMode.SOFT);
         SelenideDriver selenideDriver = new SelenideDriver(selenideConfig);
         selenideDriver.open("https://www.agoda.com/");
-        SelenideElement ad = selenideDriver.$(By.xpath("//button[@aria-label='Close Message']")).should(Condition.exist, Duration.ofSeconds(30));
-        ad.click();
+            SelenideElement ad = selenideDriver.$(By.xpath("//button[@aria-label='Close Message']")).should(Condition.exist, Duration.ofSeconds(30));
+            ad.click();
+
         selenideDriver.$(By.xpath("//button[.='Day Use Stays']")).click();
         selenideDriver.$(By.id("textInput")).setValue(place);
         selenideDriver.$(By.xpath("//div[@class='Popup__content']/ul/li[1]")).click();

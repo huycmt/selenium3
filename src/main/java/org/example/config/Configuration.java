@@ -6,6 +6,8 @@ import com.codeborne.selenide.SelenideConfig;
 import lombok.Data;
 import org.example.utils.JsonUtils;
 import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,12 @@ public class Configuration {
     }
 
     public SelenideConfig toSelenideConfig(){
-        return JsonUtils.fromJson(JsonUtils.toJson(this), SelenideConfig.class);
+        SelenideConfig selenideConfig = JsonUtils.fromJson(JsonUtils.toJson(this), SelenideConfig.class);
+//        EdgeOptions options = new EdgeOptions();
+//        options.addArguments("--no-sandbox");
+//        options.addArguments("--disable-dev-shm-usage");
+//        MutableCapabilities capabilities = new MutableCapabilities().setCapability("");
+//        selenideConfig.browserCapabilities()
+        return selenideConfig;
     }
 }
