@@ -1,10 +1,12 @@
 package agoda;
 
 import base.TestBase;
+import io.qameta.allure.Allure;
 import org.example.data.agoda.FilterResultData;
 import org.example.page.agoda.HomePage;
 import org.example.page.agoda.ResultPage;
 import org.example.utils.Assertion;
+import org.example.utils.WebUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -43,6 +45,9 @@ public class Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully extends TestBas
         homePage.setOccupancy(2, 4 , null);
 
         homePage.clickSearch();
+
+        Allure.step("Scroll for more result");
+        WebUtils.scrollTillEndOfThePage();
 
         Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(null, place), "VP: Check the hotel destination is still correct");
 

@@ -43,7 +43,7 @@ public class HomePage {
         plusRoom.click();
         plusAdult.click();
         plusAdult.click();
-//        adultValue.click();
+        adultValue.click();
     }
 
     @Step("Click search button")
