@@ -1,17 +1,10 @@
 {
   "browser": "chrome",
   "browserVersion": "115.0.5790.170",
-  "browserCapabilities": {
-    "caps": {
-      "goog:chromeOptions" : [
-        "--no-sandbox",
-        "--disable-dev-shm-usage"
-      ]
-    }
-  },
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,
   "pageLoadTimeout": 60000,
-  "assertionMode": "SOFT"
+  "assertionMode": "SOFT",
+  "remote": "http://localhost:4444/wd/hub"
 }

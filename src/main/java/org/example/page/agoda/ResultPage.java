@@ -2,7 +2,6 @@ package org.example.page.agoda;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.epam.ta.reportportal.ws.annotations.In;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
 import org.example.data.agoda.FilterResultData;
@@ -11,8 +10,19 @@ import org.example.element.Element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ResultPage {
+
+    Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
+    Element lowestPriceButton = new Element("xpath=//*[self::a or self::li][.='Lowest price first']", true);
+    Element sortByBestMatch = new Element("xpath=//button[.='Sort by: Best match']", true);
+    Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
+    Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
+    Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
+    Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
+    Element threeStarCheckBox = new Element("xpath=(//span[@aria-label=''])[1]//span[@role='checkbox']", true);
+    Element rating = new Element("xpath=//div[@aria-label='rating']", true);
 
     public boolean areTheFirstDestinationsHaveSearchContent(Integer destinationNumber, String place) {
         List<String> destinationList;
@@ -20,13 +30,16 @@ public class ResultPage {
         if (Objects.isNull(destinationNumber)) {
             destinationList = destination.elements().texts();
         } else {
-            destinationList = destination.elements().texts().subList(0, destinationNumber - 1);
+            destinationList = destination.elements().texts().subList(0, destinationNumber);
         }
         return destinationList.stream().allMatch(e -> e.contains(place));
     }
 
     @Step("Click Lowest Price First button")
     public void clickLowestPriceFirstButton() {
+        if (!lowestPriceButton.isDisplayed()) {
+            sortByBestMatch.click();
+        }
         lowestPriceButton.click();
     }
 
@@ -35,9 +48,10 @@ public class ResultPage {
         if (Objects.isNull(hotelNumber)) {
             priceList = price.elements().texts();
         } else {
-            priceList = price.elements().texts().subList(0, hotelNumber - 1);
+            priceList = price.elements().texts().subList(0, hotelNumber);
         }
-        return Ordering.natural().isOrdered(priceList);
+        List<Integer> priceListInt = priceList.stream().map(e -> Integer.parseInt(e.replaceAll(",", ""))).collect(Collectors.toList());
+        return Ordering.natural().isOrdered(priceListInt);
     }
 
     @Step("Scroll page for more results")
@@ -53,9 +67,9 @@ public class ResultPage {
         if (Objects.nonNull(filterResultData.getMaxPrice())) {
             maxPriceTextBox.enter(String.valueOf(filterResultData.getMaxPrice()));
         }
-         if (filterResultData.isThreeStarCheck()) {
-             threeStarCheckBox.check();
-         }
+        if (filterResultData.isThreeStarCheck()) {
+            threeStarCheckBox.check();
+        }
     }
 
     public List<Double> getStarList(Integer hotelNumber) {
@@ -69,13 +83,13 @@ public class ResultPage {
         double stars;
         for (SelenideElement element : ratingList) {
             stars = element.innerHtml().split("StarSymbolFillIcon").length - 1;
-            stars += (element.innerHtml().split("StarHalfSymbolFillIcon").length - 1)/2;
+            stars += (element.innerHtml().split("StarHalfSymbolFillIcon").length - 1) / 2;
             rateList.add(stars);
         }
         return rateList;
     }
 
-    public boolean areTheFirstResultsDisplayedWithCorrect(Integer hotelNumber, String place, Integer minPrice,Integer maxPrice, Double star) {
+    public boolean areTheFirstResultsDisplayedWithCorrect(Integer hotelNumber, String place, Integer minPrice, Integer maxPrice, Double star) {
         List<String> priceList, destinationList;
         if (Objects.isNull(hotelNumber)) {
             priceList = price.elements().texts();
@@ -86,13 +100,4 @@ public class ResultPage {
         }
         return destinationList.stream().allMatch(e -> e.contains(place));
     }
-
-    Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
-    Element lowestPriceButton = new Element("xpath=//a[.='Lowest price first']", true);
-    Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
-    Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
-    Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
-    Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
-    Element threeStarCheckBox = new Element("xpath=(//span[@aria-label=''])[1]//span[@role='checkbox']", true);
-    Element rating = new Element("xpath=//div[@aria-label='rating']", true);
 }

@@ -1,16 +1,9 @@
 package org.example.config;
 
-import com.codeborne.selenide.Browser;
-import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.SelenideConfig;
 import lombok.Data;
 import org.example.utils.JsonUtils;
 import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 public class Configuration {
@@ -34,7 +27,7 @@ public class Configuration {
         this.browser = "chrome";
     }
 
-    public SelenideConfig toSelenideConfig(){
+    public SelenideConfig toSelenideConfig() {
         SelenideConfig selenideConfig = JsonUtils.fromJson(JsonUtils.toJson(this), SelenideConfig.class);
         return selenideConfig;
     }

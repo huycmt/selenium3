@@ -1,14 +1,23 @@
 package org.example.page.agoda;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.example.element.Element;
-import org.example.utils.Assertion;
+import org.example.utils.WebUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class HomePage {
+
+    private final Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
+    private final Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
+    private final Element placeTextBox = new Element("id=textInput", true);
+    private final Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
+    private final Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
+    private final Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
+    private final Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
+    private final Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
+    private final Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
 
     @Step("Wait for ad display and close it")
     public void waitForAdDisplaysAndClose() {
@@ -50,18 +59,7 @@ public class HomePage {
     public void clickSearch() {
         searchButton.waitForExist();
         searchButton.click();
-        if (searchButton.isDisplayed()) {
-            searchButton.click();
-        }
+        WebUtils.switchToPage(1);
+        WebUtils.waitForPageLoad();
     }
-
-    private Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
-    private Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
-    private Element placeTextBox = new Element("id=textInput", true);
-    private Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
-    private Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
-    private Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
-    private Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
-    private Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
-    private Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
 }

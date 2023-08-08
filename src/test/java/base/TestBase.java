@@ -7,16 +7,18 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
-import org.testng.asserts.SoftAssert;
 
 import static org.example.utils.Constants.ConfigFiles;
 
 @Listeners({SoftAsserts.class})
 public class TestBase {
 
+    DriverManager driverManager = new DriverManager();
+
     @BeforeClass(alwaysRun = true)
     @Parameters("browser")
     public void beforeAll(String browser) {
+//        driverManager = new DriverManager();
         driverManager.useConfig(ConfigLoader.loadConfig(ConfigFiles.get(browser)));
         driverManager.open();
     }
@@ -25,6 +27,4 @@ public class TestBase {
     public void closeAll() {
         driverManager.close();
     }
-
-    DriverManager driverManager = new DriverManager();
 }

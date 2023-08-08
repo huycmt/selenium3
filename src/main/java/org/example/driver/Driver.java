@@ -8,9 +8,9 @@ import org.example.config.Configuration;
 public class Driver {
 
     @Getter
-    private Configuration config;
+    private final Configuration config;
     @Getter
-    private SelenideDriver driver;
+    private final SelenideDriver driver;
 
     public Driver(Configuration config) {
         this.config = config;

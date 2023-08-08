@@ -11,5 +11,6 @@ public class AllureStepListener implements StepLifecycleListener {
     public void beforeStepStart(StepResult result) {
         log.info("[Step]: " + result.getName());
     }
+
     private static final Logger log = LoggerFactory.getLogger(AllureStepListener.class);
 }

@@ -1,12 +1,15 @@
 package org.example.element;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.SelenideWait;
 import org.example.driver.Driver;
 import org.example.driver.DriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -16,6 +19,7 @@ import static com.codeborne.selenide.Condition.*;
 
 public class Element {
 
+    private static final Logger log = LoggerFactory.getLogger(Element.class);
     private String locator;
     private String dynamicLocator;
     private By by;
@@ -58,6 +62,8 @@ public class Element {
                 return By.name(locatorValue);
             case "className":
                 return By.className(locatorValue);
+            case "text":
+                return By.xpath(String.format("//*[contains(text(), '%s')]", locatorValue));
             default:
                 return By.xpath(locator);
         }
@@ -119,15 +125,16 @@ public class Element {
         return this;
     }
 
-    public void waitForExist() {
-        waitForExist(timeout());
+    public SelenideElement waitForExist() {
+        return waitForExist(timeout());
     }
 
-    public void waitForExist(Duration timeOut) {
+    public SelenideElement waitForExist(Duration timeOut) {
         if (Objects.nonNull(this.by)) {
             this.by = by();
         }
         this.element = driver().getDriver().$(this.by).should(exist, timeOut);
+        return this.element;
     }
 
     public void waitForInvisible(Duration timeOut) {
@@ -140,7 +147,6 @@ public class Element {
     public void waitForInvisible() {
         waitForInvisible(timeout());
     }
-
 
     public void waitForClickable(Duration timeOut) {
         if (Objects.nonNull(this.by)) {
@@ -160,8 +166,24 @@ public class Element {
         return driver().getDriver().$$(this.by);
     }
 
+    public boolean exists() {
+        try {
+            return waitForExist() != null;
+        } catch (NoSuchElementException | TimeoutException ex) {
+            return false;
+        }
+    }
+
     public boolean isDisplayed() {
-        return element().isDisplayed();
+        return isDisplayed(timeout());
+    }
+
+    public boolean isDisplayed(Duration duration) {
+        try {
+            return Wait(duration).until(d -> element().isDisplayed());
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public Element check() {
@@ -173,4 +195,9 @@ public class Element {
         return Duration.ofMillis(driver().getDriver().config().timeout());
     }
 
+    public SelenideWait Wait(Duration timeout) {
+        log.debug("Time out is {} milliseconds", timeout.toMillis());
+        SelenideWait wait = new SelenideWait(driver().getDriver().getWebDriver(), timeout.getSeconds(), driver().getDriver().config().pollingInterval());
+        return wait;
+    }
 }

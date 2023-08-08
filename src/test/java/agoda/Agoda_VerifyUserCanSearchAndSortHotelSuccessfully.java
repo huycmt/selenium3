@@ -1,7 +1,6 @@
 package agoda;
 
 import base.TestBase;
-
 import io.qameta.allure.Allure;
 import org.example.page.agoda.HomePage;
 import org.example.page.agoda.ResultPage;
@@ -17,6 +16,11 @@ import java.time.temporal.TemporalAdjusters;
 import static org.example.driver.DriverManager.driver;
 
 public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase {
+
+    HomePage homePage = new HomePage();
+    ResultPage resultPage = new ResultPage();
+    String place;
+    LocalDate threeDaysFromNextFriday;
 
     @BeforeMethod
     public void setUp() {
@@ -35,18 +39,21 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
         homePage.enterPlaceTextBox(place);
         homePage.clickFirstResult();
         homePage.selectDate(threeDaysFromNextFriday);
-        homePage.setOccupancy(2, 4 , null);
+        homePage.setOccupancy(2, 4, null);
 
         homePage.clickSearch();
 
         Allure.step("Scroll for more result");
-        WebUtils.scrollTillEndOfThePage();
+        WebUtils.scrollDownToTheEnd();
+        WebUtils.scrollUpToTheTop();
 
         Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(5, place), String.format("VP: Check the first 5 destinations have search content: %s", place));
 
         resultPage.clickLowestPriceFirstButton();
 
-        resultPage.scrollForMoreResults();
+        Allure.step("Scroll for more result");
+        WebUtils.scrollDownToTheEnd();
+        WebUtils.scrollUpToTheTop();
 
         Assertion.assertTrue(resultPage.areTheFirstHotelsSortedWithRightOrder(5), "VP: Check the 5 first hotels are sorted with the right order");
         Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(null, place), "VP: Check the hotel destination is still correct");
@@ -54,9 +61,4 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
         Assertion.assertAll("Complete running test case");
 
     }
-
-    HomePage homePage = new HomePage();
-    ResultPage resultPage = new ResultPage();
-    String place;
-    LocalDate threeDaysFromNextFriday;
 }

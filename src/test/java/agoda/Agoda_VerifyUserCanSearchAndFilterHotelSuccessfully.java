@@ -18,6 +18,14 @@ import static org.example.driver.DriverManager.driver;
 
 public class Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully extends TestBase {
 
+    HomePage homePage = new HomePage();
+    ResultPage resultPage = new ResultPage();
+    String place;
+    LocalDate threeDaysFromNextFriday;
+    FilterResultData filterResultData;
+    int minPrice;
+    int maxPrice;
+
     @BeforeMethod
     public void setUp() {
         place = "Da Nang";
@@ -42,12 +50,13 @@ public class Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully extends TestBas
         homePage.enterPlaceTextBox(place);
         homePage.clickFirstResult();
         homePage.selectDate(threeDaysFromNextFriday);
-        homePage.setOccupancy(2, 4 , null);
+        homePage.setOccupancy(2, 4, null);
 
         homePage.clickSearch();
 
         Allure.step("Scroll for more result");
-        WebUtils.scrollTillEndOfThePage();
+        WebUtils.scrollDownToTheEnd();
+        WebUtils.scrollUpToTheTop();
 
         Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(null, place), "VP: Check the hotel destination is still correct");
 
@@ -59,12 +68,4 @@ public class Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully extends TestBas
         Assertion.assertAll("Complete running test case");
 
     }
-
-    HomePage homePage = new HomePage();
-    ResultPage resultPage = new ResultPage();
-    String place;
-    LocalDate threeDaysFromNextFriday;
-    FilterResultData filterResultData;
-    int minPrice;
-    int maxPrice;
 }

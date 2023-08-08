@@ -1,4 +1,3 @@
-import base.TestBase;
 import com.codeborne.selenide.*;
 import com.codeborne.selenide.testng.SoftAsserts;
 import org.openqa.selenium.By;
@@ -17,7 +16,7 @@ import java.util.List;
 public class HomeTest {
 
     @Test
-    public void testCase(){
+    public void testCase() {
 
         String place = "Da Nang";
         LocalDate threeDaysFromNextFriday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY)).plusDays(3);
@@ -26,8 +25,8 @@ public class HomeTest {
         selenideConfig.assertionMode(AssertionMode.SOFT);
         SelenideDriver selenideDriver = new SelenideDriver(selenideConfig);
         selenideDriver.open("https://www.agoda.com/");
-            SelenideElement ad = selenideDriver.$(By.xpath("//button[@aria-label='Close Message']")).should(Condition.exist, Duration.ofSeconds(30));
-            ad.click();
+        SelenideElement ad = selenideDriver.$(By.xpath("//button[@aria-label='Close Message']")).should(Condition.exist, Duration.ofSeconds(30));
+        ad.click();
 
         selenideDriver.$(By.xpath("//button[.='Day Use Stays']")).click();
         selenideDriver.$(By.id("textInput")).setValue(place);

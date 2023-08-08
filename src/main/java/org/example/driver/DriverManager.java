@@ -1,8 +1,6 @@
 package org.example.driver;
 
 import org.example.config.Configuration;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 import java.util.HashMap;
 
@@ -30,6 +28,18 @@ public class DriverManager {
 
     private static long getCurrentThreadID() {
         return Thread.currentThread().getId();
+    }
+
+    public static Configuration config() {
+        return getCurrentConfig();
+    }
+
+    private static Configuration getCurrentConfig() {
+        return getConfig(getCurrentThreadID());
+    }
+
+    private static Configuration getConfig(long threadID) {
+        return configs.get(threadID);
     }
 
     public void open(String url) {
