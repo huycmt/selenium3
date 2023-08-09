@@ -19,6 +19,7 @@ public class Configuration {
     private MutableCapabilities browserCapabilities;
     private String baseUrl;
     private long timeout;
+    private long pageLoadTimeout;
     private long pollingInterval;
     private boolean clickViaJs;
 
