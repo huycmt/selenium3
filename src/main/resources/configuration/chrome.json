@@ -5,5 +5,5 @@
   "pollingInterval": 200,
   "pageLoadTimeout": 60000,
   "assertionMode": "SOFT",
-  "remote": "http://192.168.1.12:4444"
+  "remote": "http://localhost:4444/wd/hub"
 }
