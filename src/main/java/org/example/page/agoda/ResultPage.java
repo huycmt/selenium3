@@ -68,7 +68,7 @@ public class ResultPage {
             maxPriceTextBox.enter(String.valueOf(filterResultData.getMaxPrice()));
         }
         if (filterResultData.isThreeStarCheck()) {
-            threeStarCheckBox.check();
+            threeStarCheckBox.click();
         }
     }
 
