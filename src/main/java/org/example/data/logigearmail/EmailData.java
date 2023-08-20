@@ -1,12 +1,14 @@
 package org.example.data.logigearmail;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Builder
 public class EmailData {
 
