@@ -1,6 +1,5 @@
 {
   "browser": "chrome",
-  "browserVersion": "115.0.5790.170",
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,

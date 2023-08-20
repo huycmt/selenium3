@@ -1,6 +1,5 @@
 {
   "browser": "edge",
-  "browserVersion": "115.0.1901.188",
   "browserCapabilities": {
     "caps": {
     }
@@ -8,5 +7,6 @@
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,
-  "assertionMode": "SOFT"
+  "assertionMode": "SOFT",
+  "remote": "http://192.168.191.84:4444"
 }

@@ -44,12 +44,12 @@ public class DriverManager {
 
     public void open(String url) {
         initDriver();
-        getCurrentDriver().open(url);
+        driver().open(url);
     }
 
     public void open() {
         initDriver();
-        getCurrentDriver().open();
+        driver().open();
     }
 
     public void initDriver() {
