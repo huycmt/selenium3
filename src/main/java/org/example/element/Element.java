@@ -138,6 +138,11 @@ public class Element {
         return this;
     }
 
+    public Element rightClick() {
+        element().contextClick();
+        return this;
+    }
+
     public String getText() {
         return element().text();
     }
@@ -190,6 +195,14 @@ public class Element {
     public boolean exists() {
         try {
             return waitForExist() != null;
+        } catch (NoSuchElementException | TimeoutException ex) {
+            return false;
+        }
+    }
+
+    public boolean exists(Duration duration) {
+        try {
+            return waitForExist(duration) != null;
         } catch (NoSuchElementException | TimeoutException ex) {
             return false;
         }

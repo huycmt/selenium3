@@ -13,8 +13,10 @@ public class EmailData {
     String to;
     String cc;
     String subject;
-    String content;
+    @Builder.Default
+    String content = "";
     String attachment;
+    String insertionImage;
 
     @Override
     public boolean equals(Object o) {

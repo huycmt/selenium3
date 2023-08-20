@@ -1,28 +1,40 @@
 package org.example.page.logigearmail;
 
 import io.qameta.allure.Step;
+import lombok.SneakyThrows;
 import org.example.data.logigearmail.EmailData;
 import org.example.element.Element;
-import org.example.utils.Constants;
+import org.example.utils.FileUtils;
 import org.example.utils.WebUtils;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.Objects;
 
 public class HomePage {
 
-    @Step("Compose new email with attachment. Save the email and close the composing email pop up")
-    public void creatEmailToDraft(EmailData emailData) {
-        String currentPage = WebUtils.getWindowHandle();
+    @Step("Create new email")
+    public void creatEmail(EmailData emailData) {
+        homePageWindow = WebUtils.getWindowHandle();
         clickNew();
         WebUtils.waitForPageLoad();
         WebUtils.switchToPage(WebUtils.getWindowHandles().size() - 1);
         WebUtils.waitForPageLoad();
         fillEmailData(emailData);
-        clickSaveButton();
+    }
+
+    @Step("Save the email and close the composing email pop up")
+    public void saveAndCloseEmailPopup(EmailData emailData) {
+        saveButton.click();
         WebUtils.waitForTitleContain(emailData.getSubject());
         WebUtils.closePage(WebUtils.getWindowHandle());
-        WebUtils.switchToPage(currentPage);
+        WebUtils.switchToPage(homePageWindow);
+    }
+
+    @Step("Send email")
+    public void sendEmail() {
+        sendButton.click();
+        WebUtils.switchToPage(homePageWindow);
     }
 
     public void fillEmailData(EmailData emailData) {
@@ -49,15 +61,21 @@ public class HomePage {
             attachButton.click();
             WebUtils.switchToMain();
         }
+        if (Objects.nonNull(emailData.getInsertionImage())) {
+            insertImageButton.click();
+            WebUtils.waitForPageLoad();
+            WebUtils.switchToFrame(modalIframe);
+            WebUtils.switchToFrame(attachIframe);
+            chooseFile.uploadFile(new File(emailData.getInsertionImage()));
+            attachButton.click();
+            WebUtils.switchToMain();
+        }
     }
 
     public void clickNew() {
         newButton.click();
     }
 
-    public void clickSaveButton() {
-        saveButton.click();
-    }
 
     @Step("Click Draft folder in left menu")
     public void clickDraft() {
@@ -68,6 +86,7 @@ public class HomePage {
     @Step("Click on Subject")
     public void clickOnSubject(String subject) {
         subjectItem.set(subject);
+        subjectItem.waitForExist();
         subjectItem.click();
     }
 
@@ -77,9 +96,17 @@ public class HomePage {
                 .subject(subjectHeader.getText())
                 .to(toText.getAttribute("title"))
                 .content(contentText.getText())
-                .attachment(attachmentName.getAttribute("title"))
+                .attachment(attachmentName.isDisplayed(Duration.ZERO) ? attachmentName.getAttribute("title") : null)
                 .build();
     }
+
+    @SneakyThrows
+    @Step("Download image in content to path")
+    public void downloadImage(String path) {
+        FileUtils.download(imgInContent.getAttribute("src"), path, true);
+    }
+
+    static String homePageWindow;
 
     Element newButton = new Element("xpath=//span[.='New']", true);
     Element toTextBox = new Element("id=divTo", true);
@@ -87,6 +114,7 @@ public class HomePage {
     Element subjectTextBox = new Element("id=txtSubj", true);
     Element contentTextArea = new Element("xpath=//body[@fpstyle='1']", true);
     Element saveButton = new Element("id=save", true);
+    Element insertImageButton = new Element("id=insertimage", true);
     Element attachFileButton = new Element("id=attachfile", true);
     Element chooseFile = new Element("id=file1", true);
     Element attachButton = new Element("id=btnAttch", true);
@@ -99,5 +127,7 @@ public class HomePage {
     Element subjectHeader = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divConvTopic']", true);
     Element toText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divTo']/span", true);
     Element contentText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//span", true);
-    Element attachmentName = new Element("id=lnkAtmt", true);
+    Element attachmentName = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//a[@id='lnkAtmt']", true);
+    Element imgInContent = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//img", true);
+    Element sendButton = new Element("id=send", true);
 }

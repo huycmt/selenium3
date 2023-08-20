@@ -22,6 +22,8 @@ public class Configuration {
     private long pageLoadTimeout;
     private long pollingInterval;
     private boolean clickViaJs;
+    private boolean holdBrowserOpen;
+    private String fileDownload;
 
     public Configuration() {
         this.startMaximized = true;

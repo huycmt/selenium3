@@ -1,6 +1,5 @@
 package org.example.utils;
 
-import com.codeborne.selenide.SelenideDriver;
 import com.codeborne.selenide.SelenideWait;
 import org.example.driver.DriverManager;
 import org.example.element.Element;
@@ -15,16 +14,14 @@ import java.util.Set;
 public class WebUtils {
 
     private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
-    static SelenideDriver driver = DriverManager.driver().getDriver();
-    static SelenideWait wait = new SelenideWait(driver.getWebDriver(), driver.config().timeout(), driver.config().pollingInterval());
 
     public static void scrollDownToTheEnd() {
-        driver.executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
+        DriverManager.driver().getDriver().executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
         waitForJSandJQueryToLoad();
     }
 
     public static void scrollUpToTheTop() {
-        driver.executeJavaScript("window.scrollTo(0, 0)");
+        DriverManager.driver().getDriver().executeJavaScript("window.scrollTo(0, 0)");
         waitForJSandJQueryToLoad();
     }
 
@@ -32,7 +29,7 @@ public class WebUtils {
      * Switch to page with window handle
      */
     public static void switchToPage(String page) {
-        driver.switchTo().window(page);
+        DriverManager.driver().getDriver().switchTo().window(page);
         switchToMain();
     }
 
@@ -40,7 +37,7 @@ public class WebUtils {
      * Switch to page with page number
      */
     public static void switchToPage(int page) {
-        driver.switchTo().window(page);
+        DriverManager.driver().getDriver().switchTo().window(page);
         switchToMain();
     }
 
@@ -48,24 +45,25 @@ public class WebUtils {
      * Switch to last open page
      */
     public static void switchToLastOpenPage() {
-        WebUtils.switchToPage(driver.driver().getWebDriver().getWindowHandles().size() - 1);
+        WebUtils.switchToPage(DriverManager.driver().getDriver().getWebDriver().getWindowHandles().size() - 1);
     }
 
     /**
      * Switch to main
      */
     public static void switchToMain() {
-        driver.switchTo().defaultContent();
+        DriverManager.driver().getDriver().switchTo().defaultContent();
     }
 
     /**
      * Switch to frame
      */
     public static void switchToFrame(Element frame) {
-        driver.switchTo().frame(frame.element().toWebElement());
+        DriverManager.driver().getDriver().switchTo().frame(frame.element().toWebElement());
     }
 
     public static void waitForTitleContain(String title) {
+        SelenideWait wait = new SelenideWait(DriverManager.driver().getDriver().getWebDriver(), DriverManager.driver().getDriver().config().timeout(), DriverManager.driver().getDriver().config().pollingInterval());
         wait.until(ExpectedConditions.titleContains(title));
     }
 
@@ -73,7 +71,7 @@ public class WebUtils {
      * Close page by window handle
      */
     public static void closePage(String page) {
-        driver.driver().switchTo().window(page).close();
+        DriverManager.driver().getDriver().switchTo().window(page).close();
     }
 
     /**
@@ -81,6 +79,7 @@ public class WebUtils {
      */
     public static void waitForPageLoad() {
         try {
+            SelenideWait wait = new SelenideWait(DriverManager.driver().getDriver().getWebDriver(), DriverManager.driver().getDriver().config().timeout(), DriverManager.driver().getDriver().config().pollingInterval());
             wait.until(driver -> {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 return (Boolean) (executor
@@ -93,6 +92,7 @@ public class WebUtils {
     }
 
     public static boolean waitForJSandJQueryToLoad() {
+        SelenideWait wait = new SelenideWait(DriverManager.driver().getDriver().getWebDriver(), DriverManager.driver().getDriver().config().timeout(), DriverManager.driver().getDriver().config().pollingInterval());
         // wait for jQuery to load
         ExpectedCondition<Boolean> jQueryLoad = driver -> {
             try {
@@ -102,12 +102,10 @@ public class WebUtils {
                 return true;
             }
         };
-
         // wait for Javascript to load
         ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState")
                 .toString().equals("complete");
         pause(2000);
-
         return wait.until(jQueryLoad) && wait.until(jsLoad);
     }
 
@@ -115,18 +113,18 @@ public class WebUtils {
      * Get current window handle ID
      */
     public static String getWindowHandle() {
-        return driver.getWebDriver().getWindowHandle();
+        return DriverManager.driver().getDriver().getWebDriver().getWindowHandle();
     }
 
     public static String getTitle() {
-        return driver.getWebDriver().getTitle();
+        return DriverManager.driver().getDriver().getWebDriver().getTitle();
     }
 
     /**
      * Get set of window handles
      */
     public static Set<String> getWindowHandles() {
-        Set<String> tabs = driver.getWebDriver().getWindowHandles();
+        Set<String> tabs = DriverManager.driver().getDriver().getWebDriver().getWindowHandles();
         return tabs;
     }
 
