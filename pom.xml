@@ -24,6 +24,10 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar"
                     </argLine>
+                    <systemPropertyVariables>
+                        <lgguser>${lgguser}</lgguser>
+                        <lggpass>${lggpass}</lggpass>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -109,6 +113,13 @@
             <artifactId>guava</artifactId>
             <version>32.1.2-jre</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.13.0</version>
+        </dependency>
+
 
     </dependencies>
 

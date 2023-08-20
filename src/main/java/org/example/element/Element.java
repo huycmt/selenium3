@@ -11,6 +11,7 @@ import org.openqa.selenium.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -120,9 +121,29 @@ public class Element {
         return this;
     }
 
+    public Element enter(String text, boolean clear) {
+        if (clear) element().clear();
+        element().setValue(text);
+        return this;
+    }
+
     public Element click() {
+        waitForClickable();
         element().click();
         return this;
+    }
+
+    public Element uploadFile(File file) {
+        element().uploadFile(file);
+        return this;
+    }
+
+    public String getText() {
+        return element().text();
+    }
+
+    public String getAttribute(String name) {
+        return element().attr(name);
     }
 
     public SelenideElement waitForExist() {

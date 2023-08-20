@@ -7,6 +7,5 @@
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,
-  "assertionMode": "SOFT",
-  "remote": "http://192.168.191.84:4444"
+  "assertionMode": "SOFT"
 }

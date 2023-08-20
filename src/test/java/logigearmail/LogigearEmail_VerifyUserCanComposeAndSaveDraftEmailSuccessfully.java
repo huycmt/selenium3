@@ -2,10 +2,16 @@ package logigearmail;
 
 import base.TestBase;
 import io.qameta.allure.Allure;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.example.data.agoda.FilterResultData;
-import org.example.page.agoda.HomePage;
+import org.example.data.logigearmail.EmailData;
 import org.example.page.agoda.ResultPage;
+import org.example.page.general.GeneralPage;
+import org.example.page.logigearmail.HomePage;
+import org.example.page.logigearmail.LoginPage;
 import org.example.utils.Assertion;
+import org.example.utils.Constants;
 import org.example.utils.WebUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,54 +24,48 @@ import static org.example.driver.DriverManager.driver;
 
 public class LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully extends TestBase {
 
-    HomePage homePage = new HomePage();
-    ResultPage resultPage = new ResultPage();
-    String place;
-    LocalDate threeDaysFromNextFriday;
-    FilterResultData filterResultData;
-    int minPrice;
-    int maxPrice;
-
     @BeforeMethod
     public void setUp() {
-        place = "Da Nang";
-        minPrice = 500_000;
-        maxPrice = 1_000_000;
-        threeDaysFromNextFriday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY)).plusDays(3);
-        filterResultData = FilterResultData.builder()
-                .minPrice(minPrice)
-                .maxPrice(maxPrice)
-                .threeStarCheck(true)
+        username = System.getProperty("lgguser");
+        password = System.getProperty("lggpass");
+        content = "Content " + RandomStringUtils.randomAlphabetic(6);
+        subject = "Subject " + RandomStringUtils.randomAlphabetic(6);
+        emailData = EmailData.builder()
+                .to(username)
+                .subject(subject)
+                .content(content)
+                .attachment(Constants.ATTACHMENT_PATH)
                 .build();
     }
 
     @Test
-    public void agoda_VerifyUserCanSearchAndSortHotelSuccessfully() {
-        driver().open("https://sgmail.logigear.com//");
+    public void logigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully() {
+        generalPage.open("https://dnmail.logigear.com//");
 
-        homePage.waitForAdDisplaysAndClose();
+        Allure.step("Login to Logigear Mail site");
+        loginPage.login(username, password);
 
-        homePage.clickDayUseStay();
+        homePage.creatEmailToDraft(emailData);
 
-        homePage.enterPlaceTextBox(place);
-        homePage.clickFirstResult();
-        homePage.selectDate(threeDaysFromNextFriday);
-        homePage.setOccupancy(2, 4, null);
+        homePage.clickDraft();
 
-        homePage.clickSearch();
+        homePage.clickOnSubject(subject);
 
-        Allure.step("Scroll for more result");
-        WebUtils.scrollDownToTheEnd();
-        WebUtils.scrollUpToTheTop();
+        actualEmailData = homePage.getEmailData();
 
-        Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(null, place), "VP: Check the hotel destination is still correct");
-
-        resultPage.filterHotel(filterResultData);
-
-        Assertion.assertTrue(resultPage.areTheFirstResultsDisplayedWithCorrect(5, place, minPrice, maxPrice, 3.0), "VP: Check search result is displayed correctly with first 5 hotels(destination, price, star). hotel destination is still correct");
-
+        Assertion.assertEquals(emailData, actualEmailData, "VP: Verify The email is save to Draft folder successfully with correct info(receiver, subject, attachment, content)");
 
         Assertion.assertAll("Complete running test case");
 
     }
+
+    HomePage homePage = new HomePage();
+    GeneralPage generalPage = new GeneralPage();
+    LoginPage loginPage = new LoginPage();
+    String username;
+    String password;
+    String content;
+    String subject;
+    EmailData emailData;
+    EmailData actualEmailData;
 }
