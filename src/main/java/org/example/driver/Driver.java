@@ -5,6 +5,9 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import org.example.config.Configuration;
 
+import java.util.List;
+import java.util.Set;
+
 public class Driver {
 
     @Getter

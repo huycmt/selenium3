@@ -13,12 +13,12 @@ import static org.example.utils.Constants.ConfigFiles;
 @Listeners({SoftAsserts.class})
 public class TestBase {
 
-    DriverManager driverManager = new DriverManager();
+    DriverManager driverManager;
 
     @BeforeClass(alwaysRun = true)
     @Parameters("browser")
     public void beforeAll(String browser) {
-//        driverManager = new DriverManager();
+        driverManager = new DriverManager();
         driverManager.useConfig(ConfigLoader.loadConfig(ConfigFiles.get(browser)));
         driverManager.open();
     }

@@ -4,6 +4,5 @@
   "timeout": 60000,
   "pollingInterval": 200,
   "pageLoadTimeout": 60000,
-  "assertionMode": "SOFT",
-  "remote": "http://localhost:4444/wd/hub"
+  "assertionMode": "SOFT"
 }
