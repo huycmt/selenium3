@@ -12,7 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <suite.xml>src/test/resources/suites/TestSuites.xml</suite.xml>
+        <suiteXmlFile>src/test/resources/suites/TestSuites.xml</suiteXmlFile>
     </properties>
 
     <build>
@@ -29,6 +29,9 @@
                         <lgguser>${lgguser}</lgguser>
                         <lggpass>${lggpass}</lggpass>
                     </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
