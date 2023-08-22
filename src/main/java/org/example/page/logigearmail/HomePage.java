@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class HomePage {
 
-    @Step("Create new email")
+    @Step("Create new email {0}")
     public void creatEmail(EmailData emailData) {
         homePageWindow = WebUtils.getWindowHandle();
         clickNew();

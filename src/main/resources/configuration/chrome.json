@@ -1,5 +1,12 @@
 {
   "browser": "chrome",
+  "browserCapabilities": {
+    "caps" : {
+      "goog:chromeOptions": {
+        "args": ["--lang=en-US"]
+      }
+    }
+  },
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,

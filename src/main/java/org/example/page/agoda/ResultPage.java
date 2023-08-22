@@ -14,16 +14,6 @@ import java.util.stream.Collectors;
 
 public class ResultPage {
 
-    Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
-    Element lowestPriceButton = new Element("xpath=//*[self::a or self::li][.='Lowest price first']", true);
-    Element sortByBestMatch = new Element("xpath=//button[.='Sort by: Best match']", true);
-    Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
-    Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
-    Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
-    Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
-    Element threeStarCheckBox = new Element("xpath=(//span[@aria-label=''])[1]//span[@role='checkbox']", true);
-    Element rating = new Element("xpath=//div[@aria-label='rating']", true);
-
     public boolean areTheFirstDestinationsHaveSearchContent(Integer destinationNumber, String place) {
         List<String> destinationList;
 
@@ -100,4 +90,15 @@ public class ResultPage {
         }
         return destinationList.stream().allMatch(e -> e.contains(place));
     }
+
+    Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
+    Element lowestPriceButton = new Element("xpath=//*[self::a or self::li][.='Lowest price first']", true);
+    Element sortByBestMatch = new Element("xpath=//button[.='Sort by: Best match']", true);
+    Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
+    Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
+    Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
+    Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
+    Element threeStarCheckBox = new Element("xpath=(//span[@aria-label=''])[1]//span[@role='checkbox']", true);
+    Element rating = new Element("xpath=//div[@aria-label='rating']", true);
+
 }

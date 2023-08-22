@@ -9,16 +9,6 @@ import java.time.format.DateTimeFormatter;
 
 public class HomePage {
 
-    private final Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
-    private final Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
-    private final Element placeTextBox = new Element("id=textInput", true);
-    private final Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
-    private final Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
-    private final Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
-    private final Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
-    private final Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
-    private final Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
-
     @Step("Wait for ad display and close it")
     public void waitForAdDisplaysAndClose() {
         adCloseButton.waitForExist();
@@ -62,4 +52,14 @@ public class HomePage {
         WebUtils.switchToPage(1);
         WebUtils.waitForPageLoad();
     }
+
+    Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
+    Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
+    Element placeTextBox = new Element("id=textInput", true);
+    Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
+    Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
+    Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
+    Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
+    Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
+    Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
 }
