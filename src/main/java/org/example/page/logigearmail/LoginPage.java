@@ -1,6 +1,5 @@
 package org.example.page.logigearmail;
 
-import io.qameta.allure.Step;
 import org.example.element.Element;
 import org.example.utils.WebUtils;
 

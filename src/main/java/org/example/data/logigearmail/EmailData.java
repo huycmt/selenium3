@@ -3,6 +3,7 @@ package org.example.data.logigearmail;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.Objects;
@@ -10,15 +11,16 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
+@ToString
 public class EmailData {
 
-    String to;
-    String cc;
-    String subject;
+    private String to;
+    private String cc;
+    private String subject;
     @Builder.Default
-    String content = "";
-    String attachment;
-    String insertionImage;
+    private String content = "";
+    private String attachment;
+    private String insertionImage;
 
     @Override
     public boolean equals(Object o) {

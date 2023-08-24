@@ -1,5 +1,6 @@
 {
   "browser": "chrome",
+  "browserVersion" : "116.0.5845.96",
   "browserCapabilities": {
     "caps" : {
       "goog:chromeOptions": {

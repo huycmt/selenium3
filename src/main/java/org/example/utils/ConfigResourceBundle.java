@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ConfigResourceBundle {
+
     public static final ConfigResourceBundle CONFIG_RESOURCE = getInstance(ShareParameter.LANGUAGE);
     public static final Locale LOCALE = getLocate(ShareParameter.LANGUAGE);
     private final ResourceBundle resourceConfig;

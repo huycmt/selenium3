@@ -1,13 +1,11 @@
-package org.example.page.vj;
+package org.example.page.vietjet;
 
-import io.qameta.allure.Step;
-import org.example.data.TicketData;
+import org.example.data.vietjet.SearchTicketData;
 import org.example.element.Element;
 import org.example.utils.WebUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Objects;
 
 import static org.example.utils.ConfigResourceBundle.CONFIG_RESOURCE;
@@ -15,57 +13,53 @@ import static org.example.utils.ConfigResourceBundle.LOCALE;
 
 public class HomePage {
 
-    @Step("Accept cookies")
     public void acceptCookies() {
         acceptCookiesButton.click();
     }
 
-    @Step("Click not now button")
     public void clickNotNow() {
         WebUtils.switchToFrame(iframe);
         notNowButton.click();
         WebUtils.switchToMain();
     }
 
-    @Step("Search ticket with info")
-    public void searchTicket(TicketData ticketData) {
-        fillTicketInfo(ticketData);
+    public void searchTicket(SearchTicketData searchTicketData) {
+        fillTicketInfo(searchTicketData);
         clickSearch();
     }
 
-    @Step("Fill ticket information")
-    public void fillTicketInfo(TicketData ticketData) {
-        if (ticketData.isReturn()) {
+    public void fillTicketInfo(SearchTicketData searchTicketData) {
+        if (searchTicketData.isReturn()) {
             roundTripRadio.click();
         }
-        if (Objects.nonNull(ticketData.getFrom())) {
+        if (Objects.nonNull(searchTicketData.getFrom())) {
             divLabelText.set(CONFIG_RESOURCE.getValue("from"));
             divLabelText.click();
-            divText.set(CONFIG_RESOURCE.getValue(ticketData.getFrom()));
+            divText.set(CONFIG_RESOURCE.getValue(searchTicketData.getFrom()));
             divText.click();
             outsideOfPPopup.click();
         }
-        if (Objects.nonNull(ticketData.getTo())) {
+        if (Objects.nonNull(searchTicketData.getTo())) {
             divLabelText.set(CONFIG_RESOURCE.getValue("to"));
             divLabelText.click();
-            divText.set(CONFIG_RESOURCE.getValue(ticketData.getTo()));
+            divText.set(CONFIG_RESOURCE.getValue(searchTicketData.getTo()));
             divText.click();
             outsideOfPPopup.click();
         }
-        if (Objects.nonNull(ticketData.getDepartureDate())) {
+        if (Objects.nonNull(searchTicketData.getDepartureDate())) {
             divText.set(CONFIG_RESOURCE.getValue("departureDate"));
             divText.click();
-            selectDatePicker(ticketData.getDepartureDate());
+            selectDatePicker(searchTicketData.getDepartureDate());
             outsideOfPPopup.click();
         }
-        if (Objects.nonNull(ticketData.getReturnDate())) {
+        if (Objects.nonNull(searchTicketData.getReturnDate())) {
             divText.set(CONFIG_RESOURCE.getValue("returnDate"));
             divText.click();
-            selectDatePicker(ticketData.getReturnDate());
+            selectDatePicker(searchTicketData.getReturnDate());
             outsideOfPPopup.click();
         }
-        if (Objects.nonNull(ticketData.getPassenger())) {
-            TicketData.Passenger passenger = ticketData.getPassenger();
+        if (Objects.nonNull(searchTicketData.getPassenger())) {
+            SearchTicketData.Passenger passenger = searchTicketData.getPassenger();
             divLabelText.set(CONFIG_RESOURCE.getValue("passenger"));
             divLabelText.click();
             if (Objects.nonNull(passenger.getAdultNumber()) && passenger.getAdultNumber() > 1) {
@@ -76,13 +70,12 @@ public class HomePage {
             }
             outsideOfPPopup.click();
         }
-        if (Objects.nonNull(ticketData.isFindLowestFare()) && ticketData.isFindLowestFare()) {
+        if (Objects.nonNull(searchTicketData.isFindLowestFare()) && searchTicketData.isFindLowestFare()) {
             findLowestFare.set(CONFIG_RESOURCE.getValue("findLowestFare"));
             findLowestFare.click();
         }
     }
 
-    @Step("Click search flight button")
     public void clickSearch() {
         searchButton.set(CONFIG_RESOURCE.getValue("letsgo"));
         searchButton.click();
@@ -121,20 +114,18 @@ public class HomePage {
         return divLabelText.isDisplayed() && divText.isDisplayed() && searchButton.isDisplayed();
     }
 
-
-
-    Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
-    Element notNowButton = new Element("id=__st_bpn_no", true);
-    Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
-    Element divText = new Element("xpath=//div[.='%s']", true);
-    Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
-    Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
-    Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
-    Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
-    Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
-    Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
-    Element vnd = new Element("xpath=//span[.='VND']", true);
-    Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
-    Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
-    Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
+    private Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
+    private Element notNowButton = new Element("id=__st_bpn_no", true);
+    private Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
+    private Element divText = new Element("xpath=//div[.='%s']", true);
+    private Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
+    private Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
+    private Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
+    private Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
+    private Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
+    private Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
+    private Element vnd = new Element("xpath=//span[.='VND']", true);
+    private Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
+    private Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
+    private Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
 }

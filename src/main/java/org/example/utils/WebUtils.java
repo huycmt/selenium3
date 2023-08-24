@@ -16,12 +16,20 @@ public class WebUtils {
     private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
 
     public static void scrollDownToTheEnd() {
-        DriverManager.driver().getDriver().executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
-        waitForJSandJQueryToLoad();
+        scrollTo("0", "document.body.scrollHeight");
     }
 
     public static void scrollUpToTheTop() {
-        DriverManager.driver().getDriver().executeJavaScript("window.scrollTo(0, 0)");
+        scrollTo("0", "0");
+    }
+
+    public static void scrollTo(String x, String y) {
+        DriverManager.driver().getDriver().executeJavaScript(String.format("window.scrollTo(%s, %s)", x, y));
+        waitForJSandJQueryToLoad();
+    }
+
+    public static void scrollBy(int x, int y) {
+        DriverManager.driver().getDriver().executeJavaScript(String.format("window.scrollBy(%d, %d)", x, y));
         waitForJSandJQueryToLoad();
     }
 
@@ -85,12 +93,14 @@ public class WebUtils {
                 return (Boolean) (executor
                         .executeScript("return document.readyState === 'complete';"));
             });
-
         } catch (Exception e) {
             log.debug("An error occurred when waitForPageLoad - " + e.getMessage());
         }
     }
 
+    /**
+     * Wait for page load by JavaScript and JQuery
+     */
     public static boolean waitForJSandJQueryToLoad() {
         SelenideWait wait = new SelenideWait(DriverManager.driver().getDriver().getWebDriver(), DriverManager.driver().getDriver().config().timeout(), DriverManager.driver().getDriver().config().pollingInterval());
         // wait for jQuery to load
@@ -127,6 +137,7 @@ public class WebUtils {
         Set<String> tabs = DriverManager.driver().getDriver().getWebDriver().getWindowHandles();
         return tabs;
     }
+
 
     public static void pause(long millis) {
         try {

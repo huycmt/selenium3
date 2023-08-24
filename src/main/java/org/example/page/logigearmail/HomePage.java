@@ -1,6 +1,5 @@
 package org.example.page.logigearmail;
 
-import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 import org.example.data.logigearmail.EmailData;
 import org.example.element.Element;
@@ -13,7 +12,6 @@ import java.util.Objects;
 
 public class HomePage {
 
-    @Step("Create new email {0}")
     public void creatEmail(EmailData emailData) {
         homePageWindow = WebUtils.getWindowHandle();
         clickNew();
@@ -23,7 +21,6 @@ public class HomePage {
         fillEmailData(emailData);
     }
 
-    @Step("Save the email and close the composing email pop up")
     public void saveAndCloseEmailPopup(EmailData emailData) {
         saveButton.click();
         WebUtils.waitForTitleContain(emailData.getSubject());
@@ -31,7 +28,6 @@ public class HomePage {
         WebUtils.switchToPage(homePageWindow);
     }
 
-    @Step("Send email")
     public void sendEmail() {
         sendButton.click();
         WebUtils.switchToPage(homePageWindow);
@@ -77,20 +73,17 @@ public class HomePage {
     }
 
 
-    @Step("Click Draft folder in left menu")
     public void clickDraft() {
         draft.click();
         loading.waitForInvisible();
     }
 
-    @Step("Click on Subject")
     public void clickOnSubject(String subject) {
         subjectItem.set(subject);
         subjectItem.waitForExist();
         subjectItem.click();
     }
 
-    @Step("Get email data")
     public EmailData getEmailData() {
         return EmailData.builder()
                 .subject(subjectHeader.getText())
@@ -101,12 +94,11 @@ public class HomePage {
     }
 
     @SneakyThrows
-    @Step("Download image in content to path")
     public void downloadImage(String path) {
         FileUtils.download(imgInContent.getAttribute("src"), path, true);
     }
 
-    static String homePageWindow;
+    String homePageWindow;
 
     Element newButton = new Element("xpath=//span[.='New']", true);
     Element toTextBox = new Element("id=divTo", true);

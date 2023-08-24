@@ -1,13 +1,15 @@
-package org.example.data;
+package org.example.data.vietjet;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
-public class TicketData {
+@ToString
+public class SearchTicketData {
 
     private boolean isReturn;
     private String from;
@@ -21,9 +23,9 @@ public class TicketData {
     @Data
     @Builder
     public static class Passenger {
+
         private Integer adultNumber;
         private Integer children;
         private Integer infants;
     }
-
 }

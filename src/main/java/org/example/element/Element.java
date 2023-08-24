@@ -108,6 +108,14 @@ public class Element {
         return this;
     }
 
+    public Element scrollIntoView(String s) {
+        if (!Objects.nonNull(this.by)) {
+            this.by = by();
+        }
+        this.element = driver().getDriver().$(this.by).scrollIntoView(s);
+        return this;
+    }
+
     public Element get(int index) {
         return new Element(element(index));
     }
@@ -160,6 +168,18 @@ public class Element {
             this.by = by();
         }
         this.element = driver().getDriver().$(this.by).should(exist, timeOut);
+        return this.element;
+    }
+
+    public SelenideElement waitForVisible() {
+        return waitForExist(timeout());
+    }
+
+    public SelenideElement waitForVisible(Duration timeOut) {
+        if (Objects.nonNull(this.by)) {
+            this.by = by();
+        }
+        this.element = driver().getDriver().$(this.by).should(visible, timeOut);
         return this.element;
     }
 

@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite configfailurepolicy="continue" name="Test">
-    <parameter name="browser" value="chrome"></parameter>
-<!--    <test name="Agoda">-->
-<!--        <classes>-->
-<!--            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
-<!--            <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Logigear Email">-->
-<!--        <classes>-->
-<!--            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully"/>-->
-<!--            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSendEmailSuccessfully"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-    <test name="Viet Jet">
+<!--        <test name="Agoda">-->
+<!--            <classes>-->
+<!--                <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
+<!--                <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>-->
+<!--            </classes>-->
+<!--        </test>-->
+    <test name="Logigear Email">
         <classes>
-            <class name="vj.VJ_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfully"/>
+            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully"/>
+            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSendEmailSuccessfully"/>
+        </classes>
+    </test>
+    <test name="Viejet">
+        <classes>
+            <class name="vietjet.Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfully"/>
         </classes>
     </test>
 </suite>

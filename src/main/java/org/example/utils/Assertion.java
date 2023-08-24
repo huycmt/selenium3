@@ -1,7 +1,7 @@
 package org.example.utils;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.model.Status;
+import org.example.report.Report;
+import org.example.report.Status;
 
 public class Assertion {
 
@@ -9,7 +9,7 @@ public class Assertion {
         try {
             softAssertion.assertTrue(condition, step);
         } catch (AssertionError ex) {
-            Allure.step(step, Status.FAILED);
+            Report.getInstance().step(step, Status.FAILED);
             throw ex;
         }
     }
@@ -18,10 +18,10 @@ public class Assertion {
         try {
             softAssertion.assertTrue(condition, message);
             for (String step : steps) {
-                Allure.step(step);
+                Report.getInstance().step(step);
             }
         } catch (AssertionError ex) {
-            Allure.step(message, Status.FAILED);
+            Report.getInstance().step(message, Status.FAILED);
             throw ex;
         }
     }
@@ -30,7 +30,7 @@ public class Assertion {
         try {
             softAssertion.assertFalse(condition, message);
         } catch (AssertionError ex) {
-            Allure.step(message, Status.FAILED);
+            Report.getInstance().step(message, Status.FAILED);
             throw ex;
         }
     }
@@ -39,7 +39,7 @@ public class Assertion {
         try {
             softAssertion.assertEquals(actual, expected, step);
         } catch (AssertionError ex) {
-            Allure.step(step, Status.FAILED);
+            Report.getInstance().step(step, Status.FAILED);
             throw ex;
         }
     }
@@ -49,7 +49,7 @@ public class Assertion {
         try {
             softAssertion.assertNotEquals(actual, expected, step);
         } catch (AssertionError ex) {
-            Allure.step(step, Status.FAILED);
+            Report.getInstance().step(step, Status.FAILED);
             throw ex;
         }
     }

@@ -13,11 +13,9 @@ import static org.example.utils.Constants.ConfigFiles;
 @Listeners({SoftAsserts.class})
 public class TestBase {
 
-    DriverManager driverManager;
-
     @BeforeClass(alwaysRun = true)
     @Parameters({"browser", "language"})
-    public void beforeAll(String browser, @Optional String language) {
+    public void beforeClass(String browser, @Optional String language) {
         ShareParameter.LANGUAGE = Objects.requireNonNullElse(language, "en");
 
         driverManager = new DriverManager();
@@ -26,7 +24,9 @@ public class TestBase {
     }
 
     @AfterClass(alwaysRun = true)
-    public void closeAll() {
+    public void afterClass() {
         driverManager.close();
     }
+
+    private DriverManager driverManager;
 }

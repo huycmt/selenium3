@@ -3,7 +3,6 @@ package org.example.page.agoda;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.google.common.collect.Ordering;
-import io.qameta.allure.Step;
 import org.example.data.agoda.FilterResultData;
 import org.example.element.Element;
 
@@ -25,7 +24,6 @@ public class ResultPage {
         return destinationList.stream().allMatch(e -> e.contains(place));
     }
 
-    @Step("Click Lowest Price First button")
     public void clickLowestPriceFirstButton() {
         if (!lowestPriceButton.isDisplayed()) {
             sortByBestMatch.click();
@@ -44,12 +42,6 @@ public class ResultPage {
         return Ordering.natural().isOrdered(priceListInt);
     }
 
-    @Step("Scroll page for more results")
-    public void scrollForMoreResults() {
-        bedroomOption.scrollIntoView(true);
-    }
-
-    @Step("Filter hotels: {0}")
     public void filterHotel(FilterResultData filterResultData) {
         if (Objects.nonNull(filterResultData.getMinPrice())) {
             minPriceTextBox.enter(String.valueOf(filterResultData.getMinPrice()));
@@ -100,5 +92,4 @@ public class ResultPage {
     Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
     Element threeStarCheckBox = new Element("xpath=(//span[@aria-label=''])[1]//span[@role='checkbox']", true);
     Element rating = new Element("xpath=//div[@aria-label='rating']", true);
-
 }
