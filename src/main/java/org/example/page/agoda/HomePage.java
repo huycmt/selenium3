@@ -9,11 +9,17 @@ import java.util.Objects;
 
 public class HomePage {
 
+    /**
+     * Wait for advertisement display and close it
+     */
     public void waitForAdDisplaysAndClose() {
         adCloseButton.waitForExist();
         adCloseButton.click();
     }
 
+    /**
+     * Click Search button
+     */
     public void clickSearch() {
         searchButton.waitForExist();
         searchButton.click();
@@ -21,11 +27,21 @@ public class HomePage {
         WebUtils.waitForPageLoad();
     }
 
+    /**
+     * Search hotel with info
+     *
+     * @param searchHotelData
+     */
     public void searchHotel(SearchHotelData searchHotelData) {
         fillHotelInfo(searchHotelData);
         clickSearch();
     }
 
+    /**
+     * Filter hotel with info
+     *
+     * @param searchHotelData
+     */
     public void fillHotelInfo(SearchHotelData searchHotelData) {
         if (searchHotelData.isDayUseStay()) {
             dayUseStay.click();

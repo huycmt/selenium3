@@ -12,23 +12,46 @@ import static org.example.utils.Constants.TIME_FORMATTER;
 
 public class PassengerInformationPage {
 
+    /**
+     * Is passenger information page displayed
+     *
+     * @return
+     */
     public boolean isPassengerInformationPageDisplayed() {
         passengerInfo.set(CONFIG_RESOURCE.getValue("pasengerInfo"));
         return passengerInfo.isDisplayed();
     }
 
+    /**
+     * Get from place in reservation
+     *
+     * @param isDepartureFlight Is departure flight or not
+     * @return
+     */
     public String getFromInReservation(boolean isDepartureFlight) {
         String flight = isDepartureFlight ? CONFIG_RESOURCE.getValue("departureFlight") : CONFIG_RESOURCE.getValue("returnFlight");
         fromInReservation.set(flight);
         return fromInReservation.getText().split("\\(")[0].trim();
     }
 
+    /**
+     * Get to place in reservation
+     *
+     * @param isDepartureFlight Is departure flight or not
+     * @return
+     */
     public String getToInReservation(boolean isDepartureFlight) {
         String flight = isDepartureFlight ? CONFIG_RESOURCE.getValue("departureFlight") : CONFIG_RESOURCE.getValue("returnFlight");
         toInReservation.set(flight);
         return toInReservation.getText().split("\\(")[0].trim();
     }
 
+    /**
+     * Get ticket information in reservation
+     *
+     * @param isDepartureFlight Is departure flight or not
+     * @return Ticket info
+     */
     public TicketInfoData getTicketInfoOfReservation(boolean isDepartureFlight) {
         String flight = isDepartureFlight ? CONFIG_RESOURCE.getValue("departureFlight") : CONFIG_RESOURCE.getValue("returnFlight");
         flightInfo.set(flight);
@@ -49,8 +72,8 @@ public class PassengerInformationPage {
                 .build();
     }
 
-    private Element passengerInfo = new Element("xpath=//h3[.='%s']");
-    private Element fromInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[1]");
-    private Element toInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[2]");
-    private Element flightInfo = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[2]");
+    Element passengerInfo = new Element("xpath=//h3[.='%s']");
+    Element fromInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[1]");
+    Element toInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[2]");
+    Element flightInfo = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[2]");
 }
