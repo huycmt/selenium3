@@ -13,6 +13,13 @@ import java.util.stream.Collectors;
 
 public class ResultPage {
 
+    /**
+     * Are the first destinations have search content
+     *
+     * @param destinationNumber Number of destinations
+     * @param place             Place name
+     * @return
+     */
     public boolean areTheFirstDestinationsHaveSearchContent(Integer destinationNumber, String place) {
         List<String> destinationList;
 
@@ -24,6 +31,9 @@ public class ResultPage {
         return destinationList.stream().allMatch(e -> e.contains(place));
     }
 
+    /**
+     * Click the Lowest Price First button
+     */
     public void clickLowestPriceFirstButton() {
         if (!lowestPriceButton.isDisplayed()) {
             sortByBestMatch.click();
@@ -31,6 +41,12 @@ public class ResultPage {
         lowestPriceButton.click();
     }
 
+    /**
+     * Are the first hotels sorted with the right order
+     *
+     * @param hotelNumber Number of hotel need to check
+     * @return
+     */
     public boolean areTheFirstHotelsSortedWithRightOrder(Integer hotelNumber) {
         List<String> priceList;
         if (Objects.isNull(hotelNumber)) {
@@ -42,6 +58,11 @@ public class ResultPage {
         return Ordering.natural().isOrdered(priceListInt);
     }
 
+    /**
+     * Filter hotel with info
+     *
+     * @param filterResultData
+     */
     public void filterHotel(FilterResultData filterResultData) {
         if (Objects.nonNull(filterResultData.getMinPrice())) {
             minPriceTextBox.enter(String.valueOf(filterResultData.getMinPrice()));
@@ -54,6 +75,12 @@ public class ResultPage {
         }
     }
 
+    /**
+     * Get star list of hotels
+     *
+     * @param hotelNumber Number of hotel need to get
+     * @return            List star of hotels
+     */
     public List<Double> getStarList(Integer hotelNumber) {
         ElementsCollection ratingList;
         if (Objects.isNull(hotelNumber)) {
@@ -71,6 +98,16 @@ public class ResultPage {
         return rateList;
     }
 
+    /**
+     * Are the first results displayed with correct info
+     *
+     * @param hotelNumber
+     * @param place
+     * @param minPrice
+     * @param maxPrice
+     * @param star
+     * @return
+     */
     public boolean areTheFirstResultsDisplayedWithCorrect(Integer hotelNumber, String place, Integer minPrice, Integer maxPrice, Double star) {
         List<String> priceList, destinationList;
         if (Objects.isNull(hotelNumber)) {

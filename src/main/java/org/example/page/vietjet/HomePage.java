@@ -13,21 +13,37 @@ import static org.example.utils.ConfigResourceBundle.LOCALE;
 
 public class HomePage {
 
+    /**
+     * Click Accept Cookies
+     */
     public void acceptCookies() {
         acceptCookiesButton.click();
     }
 
+    /**
+     * Click not receive special offer
+     */
     public void clickNotNow() {
         WebUtils.switchToFrame(iframe);
         notNowButton.click();
         WebUtils.switchToMain();
     }
 
+    /**
+     * Search ticket with info
+     *
+     * @param searchTicketData
+     */
     public void searchTicket(SearchTicketData searchTicketData) {
         fillTicketInfo(searchTicketData);
         clickSearch();
     }
 
+    /**
+     * Fill data to search ticket form
+     *
+     * @param searchTicketData
+     */
     public void fillTicketInfo(SearchTicketData searchTicketData) {
         if (searchTicketData.isReturn()) {
             roundTripRadio.click();
@@ -76,11 +92,19 @@ public class HomePage {
         }
     }
 
+    /**
+     * Click Search flight button
+     */
     public void clickSearch() {
         searchButton.set(CONFIG_RESOURCE.getValue("letsgo"));
         searchButton.click();
     }
 
+    /**
+     * Select date in Flight Date
+     *
+     * @param localDate
+     */
     public void selectDatePicker(LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", LOCALE);
         String monthYear = localDate.format(formatter);
@@ -88,44 +112,18 @@ public class HomePage {
         date.click();
     }
 
-    public boolean isVNDDisplayed() {
-        return vnd.isDisplayed();
-    }
-
-    public LocalDate getDepartureDateDisplays() {
-        displayDate.set(CONFIG_RESOURCE.getValue("departureDate"));
-        return LocalDate.parse(displayDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    public LocalDate getReturnDateDisplays() {
-        displayDate.set(CONFIG_RESOURCE.getValue("returnDate"));
-        return LocalDate.parse(displayDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    public int getTotalPassenger() {
-        passengerDescribe.set(CONFIG_RESOURCE.getValue("passenger"));
-        return Integer.parseInt(passengerDescribe.getAttribute("value").split(" ")[0]);
-    }
-
-    public boolean isSelectTravelOptionsPageDisplayed() {
-        searchButton.set(CONFIG_RESOURCE.getValue("letsgo"));
-        divLabelText.set(CONFIG_RESOURCE.getValue("from"));
-        divText.set(CONFIG_RESOURCE.getValue("returnDate"));
-        return divLabelText.isDisplayed() && divText.isDisplayed() && searchButton.isDisplayed();
-    }
-
-    private Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
-    private Element notNowButton = new Element("id=__st_bpn_no", true);
-    private Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
-    private Element divText = new Element("xpath=//div[.='%s']", true);
-    private Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
-    private Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
-    private Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
-    private Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
-    private Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
-    private Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
-    private Element vnd = new Element("xpath=//span[.='VND']", true);
-    private Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
-    private Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
-    private Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
+    Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
+    Element notNowButton = new Element("id=__st_bpn_no", true);
+    Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
+    Element divText = new Element("xpath=//div[.='%s']", true);
+    Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
+    Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
+    Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
+    Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
+    Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
+    Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
+    Element vnd = new Element("xpath=//span[.='VND']", true);
+    Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
+    Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
+    Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
 }

@@ -5,6 +5,11 @@ import org.example.utils.WebUtils;
 
 public class LoginPage {
 
+    /**
+     * Login to Logigear Mail site
+     * @param username
+     * @param password
+     */
     public void login(String username, String password) {
         usernameTextBox.enter(username, true);
         passwordTextBox.enter(password, true);

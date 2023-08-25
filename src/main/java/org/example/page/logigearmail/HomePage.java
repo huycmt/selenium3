@@ -12,6 +12,11 @@ import java.util.Objects;
 
 public class HomePage {
 
+    /**
+     * Create email with info
+     *
+     * @param emailData
+     */
     public void creatEmail(EmailData emailData) {
         homePageWindow = WebUtils.getWindowHandle();
         clickNew();
@@ -21,6 +26,9 @@ public class HomePage {
         fillEmailData(emailData);
     }
 
+    /**
+     * Save and close email popup
+     */
     public void saveAndCloseEmailPopup(EmailData emailData) {
         saveButton.click();
         WebUtils.waitForTitleContain(emailData.getSubject());
@@ -28,11 +36,19 @@ public class HomePage {
         WebUtils.switchToPage(homePageWindow);
     }
 
+    /**
+     * Click Send Email button
+     */
     public void sendEmail() {
         sendButton.click();
         WebUtils.switchToPage(homePageWindow);
     }
 
+    /**
+     * Fill data into email dialog
+     *
+     * @param emailData
+     */
     public void fillEmailData(EmailData emailData) {
         if (Objects.nonNull(emailData.getTo())) {
             toTextBox.enter(emailData.getTo());
@@ -68,22 +84,33 @@ public class HomePage {
         }
     }
 
+    /**
+     * Click New button
+     */
     public void clickNew() {
         newButton.click();
     }
 
-
+    /**
+     * Click Draft button
+     */
     public void clickDraft() {
         draft.click();
         loading.waitForInvisible();
     }
 
+    /**
+     * Click on Subject in Subject list
+     */
     public void clickOnSubject(String subject) {
         subjectItem.set(subject);
         subjectItem.waitForExist();
         subjectItem.click();
     }
 
+    /**
+     * Get email data in email preview
+     */
     public EmailData getEmailData() {
         return EmailData.builder()
                 .subject(subjectHeader.getText())
@@ -93,6 +120,11 @@ public class HomePage {
                 .build();
     }
 
+    /**
+     * Download image in email content
+     *
+     * @param path Path to save image
+     */
     @SneakyThrows
     public void downloadImage(String path) {
         FileUtils.download(imgInContent.getAttribute("src"), path, true);
