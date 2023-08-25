@@ -1,12 +1,8 @@
 package org.example.driver;
 
 import com.codeborne.selenide.SelenideDriver;
-import io.qameta.allure.Step;
 import lombok.Getter;
 import org.example.config.Configuration;
-
-import java.util.List;
-import java.util.Set;
 
 public class Driver {
 
@@ -20,7 +16,6 @@ public class Driver {
         this.driver = new SelenideDriver(config.toSelenideConfig());
     }
 
-    @Step("Navigate to {url}")
     public void open(String url) {
         this.driver.open(url);
         if (config.isStartMaximized()) {

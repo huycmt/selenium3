@@ -1,8 +1,8 @@
 package org.example.report;
 
-import io.qameta.allure.listener.StepLifecycleListener;
+import io.qameta.allure.listener.TestLifecycleListener;
 import io.qameta.allure.model.Status;
-import io.qameta.allure.model.StepResult;
+import io.qameta.allure.model.TestResult;
 import org.example.driver.DriverManager;
 import org.openqa.selenium.OutputType;
 import org.slf4j.Logger;
@@ -11,22 +11,17 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.util.Objects;
 
-public class AllureStepListener implements StepLifecycleListener {
+public class AllureTestListener implements TestLifecycleListener {
 
     @Override
-    public void beforeStepStart(StepResult result) {
-        log.info("[Step]: " + result.getName());
-    }
-
-    @Override
-    public void beforeStepStop(StepResult result) {
-        if (result.getStatus().equals(Status.FAILED)) {
-            log.info("[Step] \"{}\" has been {}. Take a screenshot", result.getSteps(),
+    public void beforeTestStop(TestResult result) {
+        if (result.getStatus().equals(Status.BROKEN)) {
+            log.info("Test case \"{}\" has been {}. Take a screenshot", result.getFullName(),
                     result.getStatus().value());
             try {
                 if (Objects.nonNull(DriverManager.driver().getDriver())) {
                     ByteArrayInputStream input = new ByteArrayInputStream(DriverManager.driver().getDriver().screenshot(OutputType.BYTES));
-                    Report.getInstance().attachment("ScreenShot - " + result.getSteps(), input);
+                    Report.getInstance().attachment("ScreenShot - " + result.getFullName(), input);
                 }
             } catch (Exception ex) {
                 log.error(ex.getMessage());
@@ -34,5 +29,5 @@ public class AllureStepListener implements StepLifecycleListener {
         }
     }
 
-    private static final Logger log = LoggerFactory.getLogger(AllureStepListener.class);
+    private static final Logger log = LoggerFactory.getLogger(AllureTestListener.class);
 }

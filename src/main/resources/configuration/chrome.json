@@ -1,5 +1,13 @@
 {
   "browser": "chrome",
+  "browserVersion" : "116.0.5845.96",
+  "browserCapabilities": {
+    "caps" : {
+      "goog:chromeOptions": {
+        "args": ["--lang=en-US"]
+      }
+    }
+  },
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,
