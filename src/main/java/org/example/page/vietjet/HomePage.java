@@ -1,7 +1,9 @@
 package org.example.page.vietjet;
 
+import org.apache.commons.lang3.StringUtils;
 import org.example.data.vietjet.SearchTicketData;
 import org.example.element.Element;
+import org.example.utils.ShareParameter;
 import org.example.utils.WebUtils;
 
 import java.time.LocalDate;
@@ -107,7 +109,12 @@ public class HomePage {
      */
     public void selectDatePicker(LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", LOCALE);
-        String monthYear = localDate.format(formatter);
+        String monthYear = StringUtils.capitalize(localDate.format(formatter));
+        if (ShareParameter.LANGUAGE.equals("vi")) {
+            String month = monthYear.split(" ")[1];
+            if (month.length() != 2) month = "0" + month;
+            monthYear.replaceAll("[0-9]", month);
+        }
         date.set(monthYear, localDate.getDayOfMonth());
         date.click();
     }
