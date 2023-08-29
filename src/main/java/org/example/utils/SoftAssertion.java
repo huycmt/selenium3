@@ -28,7 +28,7 @@ public class SoftAssertion extends SoftAssert {
             Report.getInstance().step("Step failed: " + getErrorDetails(ex), Status.FAILED);
             if (Objects.nonNull(DriverManager.driver().getDriver())) {
                 ByteArrayInputStream input = new ByteArrayInputStream(DriverManager.driver().getDriver().screenshot(OutputType.BYTES));
-                Allure.addAttachment("ScreenShot - " + "Failed at " + a.getMessage(), input);
+                Report.getInstance().attachment("ScreenShot - " + "Failed at " + a.getMessage(), input);
             }
         } finally {
             onAfterAssert(a);

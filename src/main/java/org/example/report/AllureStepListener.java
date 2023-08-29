@@ -18,21 +18,5 @@ public class AllureStepListener implements StepLifecycleListener {
         log.info("[Step]: " + result.getName());
     }
 
-    @Override
-    public void beforeStepStop(StepResult result) {
-        if (result.getStatus().equals(Status.FAILED)) {
-            log.info("[Step] \"{}\" has been {}. Take a screenshot", result.getSteps(),
-                    result.getStatus().value());
-            try {
-                if (Objects.nonNull(DriverManager.driver().getDriver())) {
-                    ByteArrayInputStream input = new ByteArrayInputStream(DriverManager.driver().getDriver().screenshot(OutputType.BYTES));
-                    Report.getInstance().attachment("ScreenShot - " + result.getSteps(), input);
-                }
-            } catch (Exception ex) {
-                log.error(ex.getMessage());
-            }
-        }
-    }
-
     private static final Logger log = LoggerFactory.getLogger(AllureStepListener.class);
 }

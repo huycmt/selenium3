@@ -11,6 +11,6 @@
   "startMaximized": true,
   "timeout": 60000,
   "pollingInterval": 200,
-  "pageLoadTimeout": 60000,
+  "pageLoadTimeout": 180000,
   "assertionMode": "SOFT"
 }

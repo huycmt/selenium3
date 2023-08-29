@@ -53,7 +53,7 @@ public class Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfull
         Assertion.assertTrue(selectFightPage.isSelectTravelOptionsPageDisplayed(), "VP: Verify Select Travel Options page is displayed.");
         Assertion.assertTrue(selectFightPage.isTheTicketPriceDisplayedIn("VND"), "VP: Verify the ticket price is displayed in VND");
         Assertion.assertEquals(selectFightPage.getSelectedDayOfWeek(), departureDate.getDayOfWeek().getDisplayName(TextStyle.FULL, LOCALE), "VP: Verify the departure flights dates are displayed correctly (day of week)");
-        Assertion.assertTrue(selectFightPage.getSelectedMonthDay().contains(departureDate.format(DateTimeFormatter.ofPattern("MMMM dd", LOCALE))), "VP: Verify the departure flights dates are displayed correctly (month and date)");
+        Assertion.assertTrue(selectFightPage.getSelectedMonthDay().contains(departureDate.format(DateTimeFormatter.ofPattern("MMMM d", LOCALE))), "VP: Verify the departure flights dates are displayed correctly (month and date)");
         Assertion.assertEquals(selectFightPage.getFrom(), CONFIG_RESOURCE.getValue("hochiminh"), "VP: Verify the departure place is correct");
         Assertion.assertEquals(selectFightPage.getTo(), CONFIG_RESOURCE.getValue("hanoi"), "VP: Verify the arrival place is correct");
         Assertion.assertEquals(selectFightPage.getTotalPassenger(), totalAdult, "VP: Verify number of passenger is correct");
@@ -67,7 +67,7 @@ public class Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfull
         Assertion.assertTrue(selectFightPage.isSelectTravelOptionsPageDisplayed(), "VP: Verify Select Travel Options page is displayed.");
         Assertion.assertTrue(selectFightPage.isTheTicketPriceDisplayedIn("VND"), "VP: Verify the ticket price is displayed in VND");
         Assertion.assertEquals(selectFightPage.getSelectedDayOfWeek(), returnDate.getDayOfWeek().getDisplayName(TextStyle.FULL, LOCALE), "VP: Verify the return flights dates are displayed correctly (day of week)");
-        Assertion.assertTrue(selectFightPage.getSelectedMonthDay().contains(returnDate.format(DateTimeFormatter.ofPattern("MMMM dd", LOCALE))), "VP: Verify the return flights dates are displayed correctly (month and date)");
+        Assertion.assertTrue(selectFightPage.getSelectedMonthDay().contains(returnDate.format(DateTimeFormatter.ofPattern("MMMM d", LOCALE))), "VP: Verify the return flights dates are displayed correctly (month and date)");
         Assertion.assertEquals(selectFightPage.getFrom(), CONFIG_RESOURCE.getValue("hanoi"), "VP: Verify the departure place is correct");
         Assertion.assertEquals(selectFightPage.getTo(), CONFIG_RESOURCE.getValue("hochiminh"), "VP: Verify the arrival place is correct");
         Assertion.assertEquals(selectFightPage.getTotalPassenger(), totalAdult, "VP: Verify number of passenger is correct");

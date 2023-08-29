@@ -7,7 +7,6 @@ import org.example.utils.WebUtils;
 
 import java.text.NumberFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,7 +58,7 @@ public class SelectFightPage {
      * Is Select Travel Options page displayed
      */
     public boolean isSelectTravelOptionsPageDisplayed() {
-        return businessImg.isDisplayed();
+        return ecoImg.isDisplayed();
     }
 
     /** Is the ticket price displayed in currency
@@ -76,7 +75,8 @@ public class SelectFightPage {
         WebUtils.scrollDownToTheEnd();
         ElementsCollection priceList = price.elements();
         minPrice = priceList.stream().mapToInt(e -> Integer.parseInt(e.scrollIntoView(true).getText().replaceAll(",", ""))).min().orElseThrow();
-        firstMinPrice.set(NumberFormat.getNumberInstance(Locale.US).format(minPrice));
+        minPriceStr = NumberFormat.getNumberInstance(Locale.US).format(minPrice);
+        firstMinPrice.set(minPriceStr);
         firstMinPrice.scrollIntoView(true);
         firstMinPrice.click();
     }
@@ -101,7 +101,7 @@ public class SelectFightPage {
      * Get ticket type from the ticket the user has selected
      */
     public String getTicketType() {
-        ticketType.set(minPrice);
+        ticketType.set(minPriceStr);
         String type = ticketType.getAttribute("src");
         if (type.contains("eco")) return "Eco";
         if (type.contains("delux")) return "Deluxe";
@@ -113,7 +113,7 @@ public class SelectFightPage {
      * Get flight no from the ticket the user has selected
      */
     public String getFlightNo() {
-        flightNo.set(minPrice);
+        flightNo.set(minPriceStr);
         return flightNo.getText();
     }
 
@@ -121,7 +121,7 @@ public class SelectFightPage {
      * Get from and to time from the ticket the user has selected
      */
     public List<LocalTime> getFromAndToTime() {
-        fromToTime.set(minPrice);
+        fromToTime.set(minPriceStr);
         String fromTo = fromToTime.getText();
         LocalTime from = LocalTime.parse(fromTo.split(" ")[0], TIME_FORMATTER);
         LocalTime to = LocalTime.parse(fromTo.split(" ")[2], TIME_FORMATTER);
@@ -141,10 +141,11 @@ public class SelectFightPage {
      * Wait for price of list ticket displays
      */
     public void waitForPricesDisplay() {
-        businessImg.waitForVisible();
+        ecoImg.waitForVisible();
     }
 
     int minPrice;
+    String minPriceStr;
     Element dayOfWeek = new Element("xpath=//div[contains(@class, 'slick-current')]//p[1]");
     Element monthDay = new Element("xpath=//div[contains(@class, 'slick-current')]//p[2]");
     Element fromPrice = new Element("xpath=//div[contains(@class, 'slick-current')]//p[3]");
@@ -152,10 +153,10 @@ public class SelectFightPage {
     Element span = new Element("xpath=//span[.='%s']", true);
     Element price = new Element("xpath=//p[.='000 VND']/preceding-sibling::p", true);
     Element firstMinPrice = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]", true);
-    Element flightNo = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%d'])[1]/../../../../div[1]/div[1]", true);
-    Element fromToTime = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='460'])[1]/../../../../div[1]/div[2]", true);
-    Element ticketType = new Element("xpath=//div[count((//div[div[p[.='%d']]])[1]/preceding-sibling::div) +1][img[contains(@src, 'amazon')]]/img", true);
+    Element flightNo = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[1]", true);
+    Element fromToTime = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[2]", true);
+    Element ticketType = new Element("xpath=//div[count((//div[div[p[.='%s']]])[1]/preceding-sibling::div) +1][img[contains(@src, 'amazon')]]/img", true);
     Element spanContains = new Element("xpath=//span[contains(.,'%s')]", true);
     Element continueButton = new Element("xpath=(//span[.='%s'])[1]", true);
-    Element businessImg = new Element("xpath=//div/img[contains(@src,'business')]", true);
+    Element ecoImg = new Element("xpath=//div/img[contains(@src,'eco')]", true);
 }

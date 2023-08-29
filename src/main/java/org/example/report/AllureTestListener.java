@@ -15,7 +15,7 @@ public class AllureTestListener implements TestLifecycleListener {
 
     @Override
     public void beforeTestStop(TestResult result) {
-        if (result.getStatus().equals(Status.BROKEN)) {
+        if (result.getStatus().equals(Status.BROKEN) || result.getStatus().equals(Status.FAILED)) {
             log.info("Test case \"{}\" has been {}. Take a screenshot", result.getFullName(),
                     result.getStatus().value());
             try {
