@@ -1,6 +1,7 @@
 package logigearmail;
 
 import base.TestBase;
+import com.codeborne.selenide.testng.SoftAsserts;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.example.data.logigearmail.EmailData;
 import org.example.page.general.GeneralPage;
@@ -10,8 +11,10 @@ import org.example.report.Report;
 import org.example.utils.Assertion;
 import org.example.utils.Constants;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners({SoftAsserts.class})
 public class LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully extends TestBase {
 
     @BeforeMethod

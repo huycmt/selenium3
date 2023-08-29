@@ -1,6 +1,7 @@
 package agoda;
 
 import base.TestBase;
+import com.codeborne.selenide.testng.SoftAsserts;
 import org.example.data.agoda.FilterResultData;
 import org.example.data.agoda.SearchHotelData;
 import org.example.page.agoda.HomePage;
@@ -10,12 +11,14 @@ import org.example.report.Report;
 import org.example.utils.Assertion;
 import org.example.utils.WebUtils;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
+@Listeners({SoftAsserts.class})
 public class Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully extends TestBase {
 
     @BeforeMethod

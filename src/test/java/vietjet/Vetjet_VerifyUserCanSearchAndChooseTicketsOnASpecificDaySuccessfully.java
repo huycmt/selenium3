@@ -1,6 +1,7 @@
 package vietjet;
 
 import base.TestBase;
+import com.codeborne.selenide.testng.SoftAsserts;
 import org.example.data.vietjet.SearchTicketData;
 import org.example.data.vietjet.TicketInfoData;
 import org.example.page.general.GeneralPage;
@@ -10,6 +11,7 @@ import org.example.page.vietjet.SelectFightPage;
 import org.example.report.Report;
 import org.example.utils.Assertion;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.time.format.TextStyle;
 import static org.example.utils.ConfigResourceBundle.CONFIG_RESOURCE;
 import static org.example.utils.ConfigResourceBundle.LOCALE;
 
+@Listeners({SoftAsserts.class})
 public class Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfully extends TestBase {
 
     @BeforeMethod
