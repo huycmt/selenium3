@@ -21,7 +21,7 @@ public class AllureTestListener implements TestLifecycleListener {
             try {
                 if (Objects.nonNull(DriverManager.driver().getDriver())) {
                     ByteArrayInputStream input = new ByteArrayInputStream(DriverManager.driver().getDriver().screenshot(OutputType.BYTES));
-                    Report.getInstance().attachment("ScreenShot - " + result.getFullName(), input);
+                    Report.getInstance().attachment("ScreenShot - Failed at" + result.getFullName(), input);
                 }
             } catch (Exception ex) {
                 log.error(ex.getMessage());
