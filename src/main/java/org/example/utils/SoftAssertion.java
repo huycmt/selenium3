@@ -1,6 +1,5 @@
 package org.example.utils;
 
-import io.qameta.allure.Allure;
 import org.example.driver.DriverManager;
 import org.example.report.Report;
 import org.example.report.Status;
@@ -14,6 +13,21 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SoftAssertion extends SoftAssert {
+
+    public void assertAll() {
+        assertAll(null);
+    }
+
+    public void assertAll(String message) {
+        if (!m_errors.isEmpty()) {
+            Report.getInstance().step(message + " - Total check point failed: " + m_errors.size(), Status.FAILED);
+            Map<AssertionError, IAssert<?>> tempErrors = m_errors;
+            m_errors = Maps.newLinkedHashMap();
+            throw new AssertionError(tempErrors);
+        } else {
+            Report.getInstance().step(message, Status.PASSED);
+        }
+    }
 
     @Override
     protected void doAssert(IAssert<?> a) {
@@ -34,21 +48,5 @@ public class SoftAssertion extends SoftAssert {
             onAfterAssert(a);
         }
     }
-
-    public void assertAll() {
-        assertAll(null);
-    }
-
-    public void assertAll(String message) {
-        if (!m_errors.isEmpty()) {
-            Report.getInstance().step(message + " - Total check point failed: " + m_errors.size(), Status.FAILED);
-            Map<AssertionError, IAssert<?>> tempErrors = m_errors;
-            m_errors = Maps.newLinkedHashMap();
-            throw new AssertionError(tempErrors);
-        } else {
-            Report.getInstance().step(message, Status.PASSED);
-        }
-    }
-
     private Map<AssertionError, IAssert<?>> m_errors = Maps.newLinkedHashMap();
 }

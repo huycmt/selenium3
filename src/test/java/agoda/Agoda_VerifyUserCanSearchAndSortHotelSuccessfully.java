@@ -8,6 +8,7 @@ import org.example.page.agoda.ResultPage;
 import org.example.page.general.GeneralPage;
 import org.example.report.Report;
 import org.example.utils.Assertion;
+import org.example.utils.Common;
 import org.example.utils.WebUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -16,6 +17,7 @@ import org.testng.annotations.Test;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 
 @Listeners({SoftAsserts.class})
 public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase {
@@ -29,7 +31,8 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
                 .date(threeDaysFromNextFriday)
                 .isDayUseStay(true)
                 .occupancy(SearchHotelData.Occupancy.builder()
-                        .adult(2)
+                        .rooms(2)
+                        .adult(4)
                         .build())
                 .build();
     }
@@ -47,9 +50,10 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
 
         Report.getInstance().step("4. Scroll for more result");
         WebUtils.scrollDownToTheEnd();
+        WebUtils.scrollDownToTheEnd();
         WebUtils.scrollUpToTheTop();
 
-        Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(5, place), String.format("VP: Check the first 5 destinations have search content: %s", place));
+        Assertion.assertTrue(resultPage.areAllTheDestinationsHaveSearchContent(5, place), String.format("VP: Check the first 5 destinations have search content: %s", place));
 
         Report.getInstance().step("5. Click Lowest Price First button");
         resultPage.clickLowestPriceFirstButton();
@@ -58,8 +62,10 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
         WebUtils.scrollDownToTheEnd();
         WebUtils.scrollUpToTheTop();
 
-        Assertion.assertTrue(resultPage.areTheFirstHotelsSortedWithRightOrder(5), "VP: Check the 5 first hotels are sorted with the right order");
-        Assertion.assertTrue(resultPage.areTheFirstDestinationsHaveSearchContent(null, place), "VP: Check the hotel destination is still correct");
+        priceList = resultPage.getPriceList(5);
+
+        Assertion.assertEquals(priceList, Common.sort(priceList), "VP: Check the 5 first hotel prices are sorted in ascending");
+        Assertion.assertTrue(resultPage.areAllTheDestinationsHaveSearchContent(null, place), "VP: Check all the hotel destination are still correct");
 
         Assertion.assertAll("Complete running test case");
     }
@@ -70,4 +76,5 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
     String place;
     LocalDate threeDaysFromNextFriday;
     SearchHotelData searchHotelData;
+    List<Float> priceList;
 }

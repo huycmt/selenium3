@@ -20,54 +20,20 @@ import static com.codeborne.selenide.Condition.*;
 
 public class Element {
 
-    private static final Logger log = LoggerFactory.getLogger(Element.class);
-    private String locator;
-    private String dynamicLocator;
-    private By by;
-    private SelenideElement element;
-    private boolean alwaysFind;
-
     public Element(SelenideElement element) {
         this.element = element;
     }
-
     public Element(SelenideElement element, int index) {
         this.element = element;
     }
-
     public Element(String locator) {
         this.locator = locator;
         this.dynamicLocator = locator;
         this.by = by();
     }
-
     public Element(String locator, boolean alwaysFind) {
         this(locator);
         this.alwaysFind = alwaysFind;
-    }
-
-    private By by() {
-        String locatorType = this.locator.split("=")[0];
-        String locatorValue = this.locator.substring(locatorType.length() + 1);
-
-        switch (locatorType) {
-            case "css":
-                return By.cssSelector(locatorValue);
-            case "id":
-                return By.id(locatorValue);
-            case "link":
-                return By.linkText(locatorValue);
-            case "xpath":
-                return By.xpath(locatorValue);
-            case "name":
-                return By.name(locatorValue);
-            case "className":
-                return By.className(locatorValue);
-            case "text":
-                return By.xpath(String.format("//*[contains(text(), '%s')]", locatorValue));
-            default:
-                return By.xpath(locator);
-        }
     }
 
     public void set(Object... args) {
@@ -118,10 +84,6 @@ public class Element {
 
     public Element get(int index) {
         return new Element(element(index));
-    }
-
-    private Driver driver() {
-        return DriverManager.driver();
     }
 
     public Element enter(String text) {
@@ -245,13 +207,47 @@ public class Element {
         return this;
     }
 
-    protected Duration timeout() {
-        return Duration.ofMillis(driver().getDriver().config().timeout());
-    }
-
     public SelenideWait Wait(Duration timeout) {
         log.debug("Time out is {} milliseconds", timeout.toMillis());
         SelenideWait wait = new SelenideWait(driver().getDriver().getWebDriver(), timeout.getSeconds(), driver().getDriver().config().pollingInterval());
         return wait;
+    }
+    private static final Logger log = LoggerFactory.getLogger(Element.class);
+    private String locator;
+    private String dynamicLocator;
+    private By by;
+    private SelenideElement element;
+    private boolean alwaysFind;
+
+    private By by() {
+        String locatorType = this.locator.split("=")[0];
+        String locatorValue = this.locator.substring(locatorType.length() + 1);
+
+        switch (locatorType) {
+            case "css":
+                return By.cssSelector(locatorValue);
+            case "id":
+                return By.id(locatorValue);
+            case "link":
+                return By.linkText(locatorValue);
+            case "xpath":
+                return By.xpath(locatorValue);
+            case "name":
+                return By.name(locatorValue);
+            case "className":
+                return By.className(locatorValue);
+            case "text":
+                return By.xpath(String.format("//*[contains(text(), '%s')]", locatorValue));
+            default:
+                return By.xpath(locator);
+        }
+    }
+
+    private Driver driver() {
+        return DriverManager.driver();
+    }
+
+    protected Duration timeout() {
+        return Duration.ofMillis(driver().getDriver().config().timeout());
     }
 }

@@ -14,14 +14,6 @@ import java.util.Objects;
 @ToString
 public class EmailData {
 
-    private String to;
-    private String cc;
-    private String subject;
-    @Builder.Default
-    private String content = "";
-    private String attachment;
-    private String insertionImage;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,4 +27,11 @@ public class EmailData {
         if (!Objects.equals(content, that.content)) return false;
         return Objects.equals(FilenameUtils.getName(attachment), FilenameUtils.getName(that.attachment));
     }
+    private String to;
+    private String cc;
+    private String subject;
+    @Builder.Default
+    private String content = "";
+    private String attachment;
+    private String insertionImage;
 }

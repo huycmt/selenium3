@@ -47,6 +47,7 @@ public class SelectFightPage {
 
     /**
      * Get total passenger in the top of the page
+     *
      * @return
      */
     public int getTotalPassenger() {
@@ -61,7 +62,8 @@ public class SelectFightPage {
         return ecoImg.isDisplayed();
     }
 
-    /** Is the ticket price displayed in currency
+    /**
+     * Is the ticket price displayed in currency
      */
     public boolean isTheTicketPriceDisplayedIn(String currency) {
         return fromPrice.getText().contains(currency);

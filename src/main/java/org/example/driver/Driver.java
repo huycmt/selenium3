@@ -6,11 +6,6 @@ import org.example.config.Configuration;
 
 public class Driver {
 
-    @Getter
-    private final Configuration config;
-    @Getter
-    private final SelenideDriver driver;
-
     public Driver(Configuration config) {
         this.config = config;
         this.driver = new SelenideDriver(config.toSelenideConfig());
@@ -33,4 +28,8 @@ public class Driver {
     public void close() {
         this.driver.close();
     }
+    @Getter
+    private final Configuration config;
+    @Getter
+    private final SelenideDriver driver;
 }

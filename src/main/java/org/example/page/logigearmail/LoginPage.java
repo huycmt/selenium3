@@ -7,6 +7,7 @@ public class LoginPage {
 
     /**
      * Login to Logigear Mail site
+     *
      * @param username
      * @param password
      */
