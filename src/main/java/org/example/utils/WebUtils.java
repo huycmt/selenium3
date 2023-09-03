@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideWait;
 import org.example.driver.DriverManager;
 import org.example.element.Element;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -12,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Set;
 
 public class WebUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
 
     public static void scrollDownToTheEnd() {
         scrollTo("0", "document.body.scrollHeight");
@@ -138,6 +137,9 @@ public class WebUtils {
         return tabs;
     }
 
+    public static Actions actions() {
+        return DriverManager.driver().getDriver().driver().actions();
+    }
 
     public static void pause(long millis) {
         try {
@@ -146,4 +148,5 @@ public class WebUtils {
             e.printStackTrace();
         }
     }
+    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
 }

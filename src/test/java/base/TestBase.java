@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import static org.example.utils.Constants.ConfigFiles;
 
+@Listeners({SoftAsserts.class})
 public class TestBase {
 
     @BeforeClass(alwaysRun = true)

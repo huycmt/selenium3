@@ -8,6 +8,15 @@ import org.openqa.selenium.MutableCapabilities;
 @Data
 public class Configuration {
 
+    public Configuration() {
+        this.startMaximized = true;
+        this.browser = "chrome";
+    }
+
+    public SelenideConfig toSelenideConfig() {
+        SelenideConfig selenideConfig = JsonUtils.fromJson(JsonUtils.toJson(this), SelenideConfig.class);
+        return selenideConfig;
+    }
     private String browser;
     private boolean headless;
     private String remote;
@@ -24,14 +33,4 @@ public class Configuration {
     private boolean clickViaJs;
     private boolean holdBrowserOpen;
     private String fileDownload;
-
-    public Configuration() {
-        this.startMaximized = true;
-        this.browser = "chrome";
-    }
-
-    public SelenideConfig toSelenideConfig() {
-        SelenideConfig selenideConfig = JsonUtils.fromJson(JsonUtils.toJson(this), SelenideConfig.class);
-        return selenideConfig;
-    }
 }

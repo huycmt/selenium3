@@ -17,16 +17,6 @@ public class SelectTravelOptionsPage {
         return getColorOfDate(date, returnDateCell);
     }
 
-    private String getColorOfDate(LocalDate date, Element dateCell) {
-        String monthYear = date.format(DateTimeFormatter.ofPattern("MM/yyyy"));
-        if (date.getDayOfMonth() >= 15) {
-            dateCell.set(monthYear, date.getDayOfMonth(), "last()");
-        } else {
-            dateCell.set(monthYear, date.getDayOfMonth(), "1");
-        }
-        return dateCell.element().getCssValue("background-color");
-    }
-
     public String getSelectingColor() {
         selectingColor.set(CONFIG_RESOURCE.getValue("selecting"));
         return selectingColor.element().getCssValue("background-color");
@@ -57,6 +47,15 @@ public class SelectTravelOptionsPage {
         return Integer.parseInt(spanContains.getText().split(" ")[0]);
     }
 
+    private String getColorOfDate(LocalDate date, Element dateCell) {
+        String monthYear = date.format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        if (date.getDayOfMonth() >= 15) {
+            dateCell.set(monthYear, date.getDayOfMonth(), "last()");
+        } else {
+            dateCell.set(monthYear, date.getDayOfMonth(), "1");
+        }
+        return dateCell.element().getCssValue("background-color");
+    }
     private Element departureDateCell = new Element("xpath=((//p[.='%s']/../../../../../../../../..)[1]//p[.='%d'])[%s]/..", true);
     private Element returnDateCell = new Element("xpath=((//p[.='%s']/../../../../../../../../..)[2]//p[.='%d'])[%s]/..", true);
     private Element selectingColor = new Element("xpath=//h5[.='%s']/preceding-sibling::div[1]", true);

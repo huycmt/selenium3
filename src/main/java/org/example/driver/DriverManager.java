@@ -6,9 +6,6 @@ import java.util.HashMap;
 
 public class DriverManager {
 
-    private static final HashMap<Long, Driver> drivers = new HashMap<>();
-    private static final HashMap<Long, Configuration> configs = new HashMap<>();
-
     public DriverManager() {
         Configuration config = new Configuration();
         configs.put(getCurrentThreadID(), config);
@@ -18,28 +15,8 @@ public class DriverManager {
         return getCurrentDriver();
     }
 
-    private static Driver getCurrentDriver() {
-        return getDriver(getCurrentThreadID());
-    }
-
-    private static Driver getDriver(long threadID) {
-        return drivers.get(threadID);
-    }
-
-    private static long getCurrentThreadID() {
-        return Thread.currentThread().getId();
-    }
-
     public static Configuration config() {
         return getCurrentConfig();
-    }
-
-    private static Configuration getCurrentConfig() {
-        return getConfig(getCurrentThreadID());
-    }
-
-    private static Configuration getConfig(long threadID) {
-        return configs.get(threadID);
     }
 
     public void open(String url) {
@@ -73,5 +50,27 @@ public class DriverManager {
             drivers.remove(threadID);
             configs.remove(threadID);
         }
+    }
+    private static final HashMap<Long, Driver> drivers = new HashMap<>();
+    private static final HashMap<Long, Configuration> configs = new HashMap<>();
+
+    private static Driver getCurrentDriver() {
+        return getDriver(getCurrentThreadID());
+    }
+
+    private static Driver getDriver(long threadID) {
+        return drivers.get(threadID);
+    }
+
+    private static long getCurrentThreadID() {
+        return Thread.currentThread().getId();
+    }
+
+    private static Configuration getCurrentConfig() {
+        return getConfig(getCurrentThreadID());
+    }
+
+    private static Configuration getConfig(long threadID) {
+        return configs.get(threadID);
     }
 }

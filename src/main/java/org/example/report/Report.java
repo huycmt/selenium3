@@ -7,12 +7,6 @@ import java.util.Objects;
 
 public class Report {
 
-    private static volatile Report instance;
-    private static Object mutex = new Object();
-
-    private Report() {
-    }
-
     public static Report getInstance() {
         Report result = instance;
         if (Objects.isNull(result)) {
@@ -34,6 +28,11 @@ public class Report {
 
     public void attachment(String name, InputStream input) {
         Allure.attachment(name, input);
+    }
+    private static volatile Report instance;
+    private static Object mutex = new Object();
+
+    private Report() {
     }
 
     private io.qameta.allure.model.Status getStatus(Status status) {

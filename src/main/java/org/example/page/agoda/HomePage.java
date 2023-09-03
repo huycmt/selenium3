@@ -57,9 +57,13 @@ public class HomePage {
         }
         if (Objects.nonNull(searchHotelData.getOccupancy())) {
             SearchHotelData.Occupancy occupancy = searchHotelData.getOccupancy();
+            if (Objects.nonNull(occupancy.getRooms())) {
+                for (int i = 1; i < occupancy.getRooms(); i++) {
+                    plusRoom.click();
+                }
+            }
             if (Objects.nonNull(occupancy.getAdult())) {
-                plusRoom.click();
-                for (int i = 0; i < occupancy.getAdult(); i++) {
+                for (int i = 2; i < occupancy.getAdult(); i++) {
                     plusAdult.click();
                 }
                 adultValue.click();
