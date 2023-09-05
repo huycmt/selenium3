@@ -32,9 +32,9 @@ mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
 | browser         | String  |                                                                      Running browser |
 | headless        | boolean |                                                   Browser using headless mode or not |
 | remote          | String  |                                                                           URL of hub |
-| assertionMode   | String  |                                               Using SOFT or STRICT in when asserting |
+| assertionMode   | String  |                                                  Using SOFT or STRICT when asserting |
 | timeout         |  long   |                                           Default timeout for waiting condition (ms) |
-| pageLoadTimeout |  long   |                              Maximum time for waiting page is loaded completely (ms) |
+| pageLoadTimeout |  long   |                                      Maximum time for page is loaded completely (ms) |
 | pollingInterval |  long   | The time interval in which Selenide starts searching again after the last failed try |
 | startMaximized  | boolean |                                                   Browser start with maximize or not |
 
@@ -51,9 +51,9 @@ mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
 - First, install Selenium Grid according to this [link](https://www.selenium.dev/documentation/grid/getting_started/)
 - Then config URL of hub into the configuration of browser as above. 
 - For examlple:
-```
- "remote": "http://localhost:4444/wd/hub"
-```
+  ```
+   "remote": "http://localhost:4444/wd/hub"
+  ```
 
 ## Report
 
