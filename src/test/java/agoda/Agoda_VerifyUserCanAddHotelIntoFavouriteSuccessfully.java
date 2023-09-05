@@ -93,13 +93,13 @@ public class Agoda_VerifyUserCanAddHotelIntoFavouriteSuccessfully extends TestBa
         Report.getInstance().step("11. Log in Agoda");
         loginPage.login(email, password);
 
-        Report.getInstance().step("10. Add the hotel into the saved list in case ");
+        Report.getInstance().step("12. Add the hotel into the saved list again in case hotel is not added to favorite yet");
         hotelDetailsPage.clickFavoriteHeartIcon();
 
-        Report.getInstance().step("12. Open Saved Properties List Page");
+        Report.getInstance().step("13. Open Saved Properties List Page");
         homePage.selectHeaderMenu("Saved properties list");
 
-        Report.getInstance().step("13. Click on first result");
+        Report.getInstance().step("14. Click on first result");
         savePropertiesListPage.clickFirstResult();
         searchHotelData.setPlace(null);
 
