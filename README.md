@@ -18,15 +18,13 @@ mvn clean install
 
 ## Execute
 
-- You can run test suite by this command line, in this file you can change browser by change value of parameter "
-  browser"
+- You can run test suite by this command line.
 
 ```cmd
 mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
 ```
 
-- In case you want to change the configuration of browser, you can change it in "
-  /src/main/resources/configuration/[browser].json"
+- In case you want to change the configuration of browser, you can change it in "/src/main/resources/configuration/[browser].json"
 - Commonly used configurations
 
 | Config          |  Type   |                                                                          Description | 
@@ -51,7 +49,8 @@ mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
 ### Distributed testing
 
 - First, install Selenium Grid according to this [link](https://www.selenium.dev/documentation/grid/getting_started/)
-- Then config URL of hub into the configuration of browser as above. For examlple:
+- Then config URL of hub into the configuration of browser as above. 
+- For examlple:
 ```
  "remote": "http://localhost:4444/wd/hub"
 ```
