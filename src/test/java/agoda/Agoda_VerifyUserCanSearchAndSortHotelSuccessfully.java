@@ -28,7 +28,7 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
         threeDaysFromNextFriday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY)).plusDays(3);
         searchHotelData = SearchHotelData.builder()
                 .place(place)
-                .date(threeDaysFromNextFriday)
+                .fromDate(threeDaysFromNextFriday)
                 .isDayUseStay(true)
                 .occupancy(SearchHotelData.Occupancy.builder()
                         .rooms(2)

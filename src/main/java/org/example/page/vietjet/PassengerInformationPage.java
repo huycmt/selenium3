@@ -72,8 +72,8 @@ public class PassengerInformationPage {
                 .build();
     }
 
-    Element passengerInfo = new Element("xpath=//h3[.='%s']");
-    Element fromInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[1]");
-    Element toInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[2]");
-    Element flightInfo = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[2]");
+    private Element passengerInfo = new Element("xpath=//h3[.='%s']");
+    private Element fromInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[1]");
+    private Element toInReservation = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[1]/h5[2]");
+    private Element flightInfo = new Element("xpath=//div[p[.='%s']]/following-sibling::div[1]/div[1]/div[2]");
 }

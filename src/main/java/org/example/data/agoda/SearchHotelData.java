@@ -13,7 +13,8 @@ public class SearchHotelData {
 
     boolean isDayUseStay;
     String place;
-    LocalDate date;
+    LocalDate fromDate;
+    LocalDate toDate;
     Occupancy occupancy;
 
     @Data

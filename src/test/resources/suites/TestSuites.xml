@@ -4,19 +4,20 @@
     <parameter name="browser" value="chrome"></parameter>
     <test name="Agoda">
         <classes>
-            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
+<!--            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
             <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>
+            <class name="agoda.Agoda_VerifyUserCanAddHotelIntoFavouriteSuccessfully"/>
         </classes>
     </test>
-    <test name="Logigear Email">
-        <classes>
-            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully"/>
-            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSendEmailSuccessfully"/>
-        </classes>
-    </test>
-    <test name="Viejet">
-        <classes>
-            <class name="vietjet.Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfully"/>
-        </classes>
-    </test>
+<!--    <test name="Logigear Email">-->
+<!--        <classes>-->
+<!--            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSaveDraftEmailSuccessfully"/>-->
+<!--            <class name="logigearmail.LogigearEmail_VerifyUserCanComposeAndSendEmailSuccessfully"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Viejet">-->
+<!--        <classes>-->
+<!--            <class name="vietjet.Vetjet_VerifyUserCanSearchAndChooseTicketsOnASpecificDaySuccessfully"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

@@ -112,18 +112,18 @@ public class HomePage {
         date.click();
     }
 
-    Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
-    Element notNowButton = new Element("id=__st_bpn_no", true);
-    Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
-    Element divText = new Element("xpath=//div[.='%s']", true);
-    Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
-    Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
-    Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
-    Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
-    Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
-    Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
-    Element vnd = new Element("xpath=//span[.='VND']", true);
-    Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
-    Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
-    Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
+    private Element acceptCookiesButton = new Element("xpath=//div[contains(@class,'MuiDialogContent-root')]//h5", true);
+    private Element notNowButton = new Element("id=__st_bpn_no", true);
+    private Element roundTripRadio = new Element("xpath=//input[@value='roundTrip']", true);
+    private Element divText = new Element("xpath=//div[.='%s']", true);
+    private Element divLabelText = new Element("xpath=//div[label[.='%s']]", true);
+    private Element date = new Element("xpath=(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]", true);
+    private Element plusButton = new Element("xpath=//div[div[div[p[.='%s']]]]//button[2]", true);
+    private Element findLowestFare = new Element("xpath=//div[h3[.='%s']]//input", true);
+    private Element outsideOfPPopup = new Element("xpath=//input[@value='roundTrip']/../../../../../../..", true);
+    private Element searchButton = new Element("xpath=//span[.=\"%s\"]", true);
+    private Element vnd = new Element("xpath=//span[.='VND']", true);
+    private Element iframe = new Element("xpath=//div[@id='__st_fancy_popup']/iframe", true);
+    private Element displayDate = new Element("xpath=//div[p[.='%s']]/p[2]", true);
+    private Element passengerDescribe = new Element("xpath=//div[label[.='%s']]//input", true);
 }

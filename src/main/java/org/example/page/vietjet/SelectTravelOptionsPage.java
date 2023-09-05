@@ -56,6 +56,7 @@ public class SelectTravelOptionsPage {
         }
         return dateCell.element().getCssValue("background-color");
     }
+
     private Element departureDateCell = new Element("xpath=((//p[.='%s']/../../../../../../../../..)[1]//p[.='%d'])[%s]/..", true);
     private Element returnDateCell = new Element("xpath=((//p[.='%s']/../../../../../../../../..)[2]//p[.='%d'])[%s]/..", true);
     private Element selectingColor = new Element("xpath=//h5[.='%s']/preceding-sibling::div[1]", true);

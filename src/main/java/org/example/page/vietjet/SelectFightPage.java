@@ -148,17 +148,17 @@ public class SelectFightPage {
 
     int minPrice;
     String minPriceStr;
-    Element dayOfWeek = new Element("xpath=//div[contains(@class, 'slick-current')]//p[1]");
-    Element monthDay = new Element("xpath=//div[contains(@class, 'slick-current')]//p[2]");
-    Element fromPrice = new Element("xpath=//div[contains(@class, 'slick-current')]//p[3]");
-    Element followingSpan = new Element("xpath=//span[.='%s']/following-sibling::span", true);
-    Element span = new Element("xpath=//span[.='%s']", true);
-    Element price = new Element("xpath=//p[.='000 VND']/preceding-sibling::p", true);
-    Element firstMinPrice = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]", true);
-    Element flightNo = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[1]", true);
-    Element fromToTime = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[2]", true);
-    Element ticketType = new Element("xpath=//div[count((//div[div[p[.='%s']]])[1]/preceding-sibling::div) +1][img[contains(@src, 'amazon')]]/img", true);
-    Element spanContains = new Element("xpath=//span[contains(.,'%s')]", true);
-    Element continueButton = new Element("xpath=(//span[.='%s'])[1]", true);
-    Element ecoImg = new Element("xpath=//div/img[contains(@src,'eco')]", true);
+    private Element dayOfWeek = new Element("xpath=//div[contains(@class, 'slick-current')]//p[1]");
+    private Element monthDay = new Element("xpath=//div[contains(@class, 'slick-current')]//p[2]");
+    private Element fromPrice = new Element("xpath=//div[contains(@class, 'slick-current')]//p[3]");
+    private Element followingSpan = new Element("xpath=//span[.='%s']/following-sibling::span", true);
+    private Element span = new Element("xpath=//span[.='%s']", true);
+    private Element price = new Element("xpath=//p[.='000 VND']/preceding-sibling::p", true);
+    private Element firstMinPrice = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]", true);
+    private Element flightNo = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[1]", true);
+    private Element fromToTime = new Element("xpath=(//p[.='000 VND']/preceding-sibling::p[.='%s'])[1]/../../../../div[1]/div[2]", true);
+    private Element ticketType = new Element("xpath=//div[count((//div[div[p[.='%s']]])[1]/preceding-sibling::div) +1][img[contains(@src, 'amazon')]]/img", true);
+    private Element spanContains = new Element("xpath=//span[contains(.,'%s')]", true);
+    private Element continueButton = new Element("xpath=(//span[.='%s'])[1]", true);
+    private Element ecoImg = new Element("xpath=//div/img[contains(@src,'eco')]", true);
 }

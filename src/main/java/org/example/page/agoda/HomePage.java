@@ -50,10 +50,23 @@ public class HomePage {
             placeTextBox.enter(searchHotelData.getPlace());
             firstPlaceResult.click();
         }
-        if (Objects.nonNull(searchHotelData.getDate())) {
-            String dateStr = searchHotelData.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            selectDate.set(dateStr);
-            selectDate.click();
+        if (searchHotelData.isDayUseStay()) {
+            if (Objects.nonNull(searchHotelData.getFromDate())) {
+                String dateStr = searchHotelData.getFromDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                selectDate.set(dateStr);
+                selectDate.click();
+            }
+        } else {
+            if (Objects.nonNull(searchHotelData.getFromDate())) {
+                String dateStr = searchHotelData.getFromDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                selectDate.set(dateStr);
+                selectDate.click();
+            }
+            if (Objects.nonNull(searchHotelData.getToDate())) {
+                String dateStr = searchHotelData.getToDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                selectDate.set(dateStr);
+                selectDate.click();
+            }
         }
         if (Objects.nonNull(searchHotelData.getOccupancy())) {
             SearchHotelData.Occupancy occupancy = searchHotelData.getOccupancy();
@@ -71,13 +84,26 @@ public class HomePage {
         }
     }
 
-    Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
-    Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
-    Element placeTextBox = new Element("id=textInput", true);
-    Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
-    Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
-    Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
-    Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
-    Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
-    Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
+    /**
+     * Select user menu after logging in
+     *
+     * @param item e.g. Bookings, Saved properties list,...
+     */
+    public void selectHeaderMenu(String item) {
+        avatar.click();
+        menuItem.set(item);
+        menuItem.click();
+    }
+
+    private Element adCloseButton = new Element("xpath=//button[@aria-label='Close Message']", true);
+    private Element dayUseStay = new Element("xpath=//button[.='Day Use Stays']", true);
+    private Element placeTextBox = new Element("id=textInput", true);
+    private Element firstPlaceResult = new Element("xpath=//div[@class='Popup__content']/ul/li[1]", true);
+    private Element selectDate = new Element("xpath=//span[@data-selenium-date='%s']", true);
+    private Element plusRoom = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-rooms' and @data-selenium='plus']", true);
+    private Element plusAdult = new Element("xpath=//div[@data-element-name='occupancy-selector-panel-adult' and @data-selenium='plus']", true);
+    private Element adultValue = new Element("xpath=//span[@data-selenium='adultValue']", true);
+    private Element searchButton = new Element("xpath=//span[.='SEARCH']", true);
+    private Element avatar = new Element("xpath=//div[@data-element-name='user-avatar']", true);
+    private Element menuItem = new Element("xpath=//ul[@class='UserOrHostMenuContainer__UserMenu']/li[.='Saved properties list']", true);
 }

@@ -132,26 +132,26 @@ public class HomePage {
 
     String homePageWindow;
 
-    Element newButton = new Element("xpath=//span[.='New']", true);
-    Element toTextBox = new Element("id=divTo", true);
-    Element ccTextBox = new Element("id=divCc", true);
-    Element subjectTextBox = new Element("id=txtSubj", true);
-    Element contentTextArea = new Element("xpath=//body[@fpstyle='1']", true);
-    Element saveButton = new Element("id=save", true);
-    Element insertImageButton = new Element("id=insertimage", true);
-    Element attachFileButton = new Element("id=attachfile", true);
-    Element chooseFile = new Element("id=file1", true);
-    Element attachButton = new Element("id=btnAttch", true);
-    Element iframe = new Element("id=ifBdy", true);
-    Element attachIframe = new Element("xpath=//iframe[contains(@src, 'AttachFileDialog')]", true);
-    Element modalIframe = new Element("id=iFrameModalDlg", true);
-    Element draft = new Element("xpath=//span[@fldrnm='Drafts']", true);
-    Element loading = new Element("xpath=//div[.='Loading...']", true);
-    Element subjectItem = new Element("xpath=//div[@id='divSubject' and .='%s']", true);
-    Element subjectHeader = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divConvTopic']", true);
-    Element toText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divTo']/span", true);
-    Element contentText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//span", true);
-    Element attachmentName = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//a[@id='lnkAtmt']", true);
-    Element imgInContent = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//img", true);
-    Element sendButton = new Element("id=send", true);
+    private Element newButton = new Element("xpath=//span[.='New']", true);
+    private Element toTextBox = new Element("id=divTo", true);
+    private Element ccTextBox = new Element("id=divCc", true);
+    private Element subjectTextBox = new Element("id=txtSubj", true);
+    private Element contentTextArea = new Element("xpath=//body[@fpstyle='1']", true);
+    private Element saveButton = new Element("id=save", true);
+    private Element insertImageButton = new Element("id=insertimage", true);
+    private Element attachFileButton = new Element("id=attachfile", true);
+    private Element chooseFile = new Element("id=file1", true);
+    private Element attachButton = new Element("id=btnAttch", true);
+    private Element iframe = new Element("id=ifBdy", true);
+    private Element attachIframe = new Element("xpath=//iframe[contains(@src, 'AttachFileDialog')]", true);
+    private Element modalIframe = new Element("id=iFrameModalDlg", true);
+    private Element draft = new Element("xpath=//span[@fldrnm='Drafts']", true);
+    private Element loading = new Element("xpath=//div[.='Loading...']", true);
+    private Element subjectItem = new Element("xpath=//div[@id='divSubject' and .='%s']", true);
+    private Element subjectHeader = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divConvTopic']", true);
+    private Element toText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divTo']/span", true);
+    private Element contentText = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//span", true);
+    private Element attachmentName = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//a[@id='lnkAtmt']", true);
+    private Element imgInContent = new Element("xpath=//div[@_pagetype='MessageViewSubPage' and not(contains(@style,'none'))]//div[@id='divBdy']//img", true);
+    private Element sendButton = new Element("id=send", true);
 }

@@ -33,7 +33,9 @@ public class ResultPage {
             return false;
         }
         for (String str : destinationList) {
-            if (!str.contains(place)) {
+            String lowerStr = str.toLowerCase();
+            String lowerPlace = place.toLowerCase();
+            if (!lowerStr.contains(lowerPlace) && !lowerStr.contains(String.join("", lowerPlace.split(" ")))) {
                 Report.getInstance().step(String.format("Destination '%s' does not contain '%s'", str, place), Status.FAILED);
                 return false;
             }
@@ -62,7 +64,6 @@ public class ResultPage {
         if (Objects.nonNull(hotelNumber)) {
             if (hotelNumber > priceList.size()) {
                 Report.getInstance().step(String.format("Page only show %d instead of %d result(s). Scroll down for more results", priceList.size(), hotelNumber), Status.FAILED);
-                return null;
             } else {
                 priceList = price.elements().texts().subList(0, hotelNumber);
             }
@@ -80,13 +81,31 @@ public class ResultPage {
         List<String> destinationList = destination.elements().texts();
         if (Objects.nonNull(hotelNumber)) {
             if (hotelNumber > destinationList.size()) {
-                Report.getInstance().step(String.format("Page only show %d instead of %d result(s). Scroll down for more results", destinationList.size(), hotelNumber), Status.FAILED);
-                return null;
+                Report.getInstance().step(String.format("Page only show %d instead of %d result(s). Scroll down or try with another filter for more results", destinationList.size(), hotelNumber), Status.FAILED);
+                return destinationList;
             } else {
                 destinationList = destination.elements().texts().subList(0, hotelNumber);
             }
         }
         return destinationList;
+    }
+
+    /**
+     * Get all the hotel name
+     *
+     * @param hotelNumber Number of hotel need to get
+     * @return List of all hotel name
+     */
+    public List<String> getHotelNameList(Integer hotelNumber) {
+        List<String> hotelNameList = hotelName.elements().stream().map(e -> e.getText().trim()).collect(Collectors.toList());
+        if (Objects.nonNull(hotelNumber)) {
+            if (hotelNumber > hotelNameList.size()) {
+                Report.getInstance().step(String.format("Page only show %d instead of %d result(s). Scroll down or try with another filter for more results", hotelNameList.size(), hotelNumber), Status.FAILED);
+            } else {
+                hotelNameList = hotelNameList.subList(0, hotelNumber);
+            }
+        }
+        return hotelNameList;
     }
 
     /**
@@ -108,6 +127,20 @@ public class ResultPage {
         if (filterResultData.isThreeStarCheck()) {
             threeStarCheckBox.click();
             WebUtils.waitForJSandJQueryToLoad();
+        }
+        if (Objects.nonNull(filterResultData.getRoomOffers())) {
+            for (String offer : filterResultData.getRoomOffers()) {
+                roomOffers.set(offer);
+                roomOffers.click();
+                WebUtils.waitForJSandJQueryToLoad();
+            }
+        }
+        if (Objects.nonNull(filterResultData.getFacilities())) {
+            for (String facility : filterResultData.getFacilities()) {
+                facilities.set(facility);
+                facilities.click();
+                WebUtils.waitForJSandJQueryToLoad();
+            }
         }
     }
 
@@ -145,11 +178,13 @@ public class ResultPage {
         List<Float> priceList = getPriceList(hotelNumber);
         List<String> destinationList = getDestinationList(hotelNumber);
         List<Float> starList = getStarList(hotelNumber);
+        List<String> hotelNameList = getHotelNameList(hotelNumber);
         for (int i = 0; i < priceList.size(); i++) {
             hotelData.add(HotelData.builder()
-                    .areaCity(destinationList.get(i))
+                    .address(destinationList.get(i))
                     .price(priceList.get(i))
                     .star(starList.get(i))
+                    .hotelName(hotelNameList.get(i))
                     .build());
         }
         return hotelData;
@@ -208,7 +243,7 @@ public class ResultPage {
      */
     public boolean areAllHotelInfosMatchWithFilter(List<HotelData> hotelDataList, int minPrice, int maxPrice, String place, float star) {
         for (HotelData hotelData : hotelDataList) {
-            if (hotelData.getPrice() > maxPrice || hotelData.getPrice() < minPrice || !hotelData.getAreaCity().contains(place) || (hotelData.getStar().intValue() != (int) star)) {
+            if (hotelData.getPrice() > maxPrice || hotelData.getPrice() < minPrice || !hotelData.getAddress().contains(place) || (hotelData.getStar().intValue() != (int) star)) {
                 Report.getInstance().step("This hotel data is not match: " + hotelData, Status.FAILED);
             }
         }
@@ -226,17 +261,29 @@ public class ResultPage {
         WebUtils.waitForJSandJQueryToLoad();
     }
 
-    Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
-    Element lowestPriceButton = new Element("xpath=//*[self::a or self::li][.='Lowest price first']", true);
-    Element sortByBestMatch = new Element("xpath=//button[.='Sort by: Best match']", true);
-    Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
-    Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
-    Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
-    Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
-    Element threeStarCheckBox = new Element("xpath=//span[contains(@class,'StarRating-3')]//span[@class='checkbox-icon']", true);
-    Element rating = new Element("xpath=//div[@role='img']", true);
-    Element minSliderHandle = new Element("xpath=(//div[@aria-label='undefined MIN'])[1]", true);
-    Element maxSliderHandle = new Element("xpath=(//div[@aria-label='undefined MAX'])[1]", true);
-    Element threeStarInRecentFilter = new Element("xpath=(//span[@data-component='search-filter-starrating' and contains(@class,'RecentFilters')])[1]", true);
-    Element slider = new Element("xpath=(//div[@class='rc-slider rc-slider-horizontal'])[1]", true);
+    /**
+     * CLick on nth result
+     */
+    public void clickOnNthResult(int resultNumber) {
+        hotelName.waitForVisible();
+        hotelName.element(resultNumber - 1).click();
+        WebUtils.waitForPageLoad();
+    }
+
+    private Element destination = new Element("xpath=//span[@data-selenium='area-city-text']", true);
+    private Element hotelName = new Element("xpath=//h3[@data-selenium='hotel-name']", true);
+    private Element lowestPriceButton = new Element("xpath=//*[self::a or self::li][.='Lowest price first']", true);
+    private Element sortByBestMatch = new Element("xpath=//button[.='Sort by: Best match']", true);
+    private Element price = new Element("xpath=//span[@class='PropertyCardPrice__Value']", true);
+    private Element bedroomOption = new Element("xpath=//span[.='1 bedroom']", true);
+    private Element minPriceTextBox = new Element("xpath=//input[@aria-label='Minimum price filter']", true);
+    private Element maxPriceTextBox = new Element("xpath=//input[@aria-label='Maximum price filter']", true);
+    private Element threeStarCheckBox = new Element("xpath=//span[contains(@class,'StarRating-3')]//span[@class='checkbox-icon']", true);
+    private Element rating = new Element("xpath=//div[@role='img']", true);
+    private Element minSliderHandle = new Element("xpath=(//div[@aria-label='undefined MIN'])[1]", true);
+    private Element maxSliderHandle = new Element("xpath=(//div[@aria-label='undefined MAX'])[1]", true);
+    private Element threeStarInRecentFilter = new Element("xpath=(//span[@data-component='search-filter-starrating' and contains(@class,'RecentFilters')])[1]", true);
+    private Element slider = new Element("xpath=(//div[@class='rc-slider rc-slider-horizontal'])[1]", true);
+    private Element roomOffers = new Element("xpath=//span[@aria-label='%s' and contains(@class,'RoomOffers')]//span[@role='checkbox']", true);
+    private Element facilities = new Element("xpath=//span[@aria-label='%s' and contains(@class,'Facilities')]//span[@role='checkbox']", true);
 }

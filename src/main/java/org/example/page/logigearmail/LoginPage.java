@@ -18,7 +18,7 @@ public class LoginPage {
         WebUtils.waitForPageLoad();
     }
 
-    Element usernameTextBox = new Element("id=username", true);
-    Element passwordTextBox = new Element("id=password", true);
-    Element signInButton = new Element("xpath=//input[@class='btn' and @type='submit']", true);
+    private Element usernameTextBox = new Element("id=username", true);
+    private Element passwordTextBox = new Element("id=password", true);
+    private Element signInButton = new Element("xpath=//input[@class='btn' and @type='submit']", true);
 }
