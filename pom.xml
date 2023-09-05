@@ -25,10 +25,6 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar"
                     </argLine>
-                    <systemPropertyVariables>
-                        <lgguser>${lgguser}</lgguser>
-                        <lggpass>${lggpass}</lggpass>
-                    </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
