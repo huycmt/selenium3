@@ -18,8 +18,7 @@ mvn clean install
 
 ## Execute
 
-- You can run test suite by this command line, in this file you can change browser by change value of parameter "
-  browser"
+- You can run test suite by this command line, in this file you can change browser by change value of parameter "browser"
 - In case you want to change the configuration of browser, you can change it in "
   /src/main/resources/configuration/[browser].json"
 ```cmd
