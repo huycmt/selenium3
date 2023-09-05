@@ -22,9 +22,20 @@ mvn clean install
   browser"
 - In case you want to change the configuration of browser, you can change it in "
   /src/main/resources/configuration/[browser].json"
-
 ```cmd
 mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
+```
+## Report
+- Allure report is using in this framework
+
+  ### Installation
+  - You can refer to this link to install allure: [link](https://docs.qameta.io/allure/#_installing_a_commandline)
+  ### Report generation
+  - After running the test, the report is generated on the /allure-result directory
+  - Use this command from project folder to generate report
+
+```cmd
+allure serve 
 ```
 
 ## License
